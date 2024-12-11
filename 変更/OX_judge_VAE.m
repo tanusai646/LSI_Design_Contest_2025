@@ -13,69 +13,77 @@ clc;
 
 rng(2025);        % Set random seed.
 
-MARU = [1 1 1;
-        1 0 1;
-        1 1 1];   % 〇 Circle (Maru in Japanese)
-BATU = [1 0 1;
-        0 1 0;
-        1 0 1];   % × Cross (Batu in Japanese)
-DAIYA = [0 1 0;
-        1 0 1;
-        0 1 0];
-PLUS = [0 1 0;
-        1 1 1;
-        0 1 1];
+MARU = [0 1 1 1 0;
+        1 0 0 0 1;
+        1 0 0 0 1;
+        1 0 0 0 1;
+        0 1 1 1 0];   % 〇 Circle (Maru in Japanese)
+BATU = [1 0 0 0 1;
+        0 1 0 1 0;
+        0 0 1 0 0;
+        0 1 0 1 0;
+        1 0 0 0 1];   % × Cross (Batu in Japanese)
+DAIYA = [0 0 1 0 0;
+        0 1 0 1 0;
+        1 0 0 0 1;
+        0 1 0 1 0;
+        0 0 1 0 0];
+PLUS = [0 0 1 0 0;
+        0 0 1 0 0;
+        1 1 1 1 1;
+        0 0 1 0 0;
+        0 0 1 0 0];
 
 % Teacher data of 〇
-CorrectData(:,1) = reshape(MARU',9,1);
+CorrectData(:,1) = reshape(MARU',25,1);
 LabelData(:,1) = CorrectData(:,1);   % Correct answer when input is 〇
 
 % Teacher data of ×
-CorrectData(:,2) = reshape(BATU',9,1);
+CorrectData(:,2) = reshape(BATU',25,1);
 LabelData(:,2) = CorrectData(:,2);   % Correct answer when input is ×
 
 % Teacher data of ◇
-CorrectData(:,3) = reshape(DAIYA', 9, 1);
+CorrectData(:,3) = reshape(DAIYA', 25, 1);
 LabelData(:,3) = CorrectData(:,3);
 
 % Teacher data of ＋
-CorrectData(:,4) = reshape(PLUS', 9, 1);
+CorrectData(:,4) = reshape(PLUS', 25, 1);
 LabelData(:,4) = CorrectData(:,4);
 
 
 % Create test data
 % Maru and Maru + 1bit error
-TestData(:,1) = reshape([1 1 1;1 0 1;0 1 1]', 9,1);
-TestData(:,2) = reshape([0 1 1;1 0 1;1 0 1]', 9,1);
-TestData(:,3) = reshape([1 0 1;1 0 1;1 1 1]', 9,1);
-TestData(:,4) = reshape([1 1 0;1 0 1;1 1 1]', 9,1);
-TestData(:,5) = reshape([1 1 1;0 0 1;1 1 1]', 9,1);
-TestData(:,6) = reshape([1 1 1;1 1 1;1 1 1]', 9,1);
-TestData(:,7) = reshape([1 0 1;1 0 1;1 0 1]', 9,1);
+TestData(:,1) = reshape([1 1 1 1 1; 1 0 0 0 1; 1 0 1 0 1; 1 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,2) = reshape([0 0 1 1 0; 1 0 0 0 1; 1 0 0 0 1; 1 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,3) = reshape([0 1 1 1 1; 1 0 0 0 1; 1 0 0 0 1; 1 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,4) = reshape([0 1 1 1 0; 1 0 1 0 1; 1 0 0 0 1; 1 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,5) = reshape([0 1 1 1 0; 1 0 0 0 1; 1 1 0 0 1; 1 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,6) = reshape([0 1 1 1 0; 1 0 0 0 1; 1 0 0 0 1; 0 0 0 0 1; 0 1 1 1 0]', 25,1);
+TestData(:,7) = reshape([0 1 1 1 0; 1 0 0 0 1; 1 0 0 0 1; 1 0 0 0 1; 0 1 1 1 1]', 25,1);
 % Batsu and Batsu + 1bit error
-TestData(:,8) = reshape([1 0 1;0 1 0;1 0 1]', 9,1);
-TestData(:,9) = reshape([0 0 1;0 1 0;1 0 1]', 9,1);
-TestData(:,10) = reshape([1 1 1;0 1 0;1 0 1]', 9,1);
-TestData(:,11) = reshape([1 0 0;0 1 0;1 0 1]', 9,1);
-TestData(:,12) = reshape([1 0 1;1 1 0;1 0 1]', 9,1);
-TestData(:,13) = reshape([1 0 1;0 0 0;1 0 1]', 9,1);
-TestData(:,14) = reshape([1 0 1;0 1 1;1 0 1]', 9,1);
+TestData(:,8) = reshape([1 0 0 1 1; 0 1 0 1 0; 0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1]', 25,1);
+TestData(:,9) = reshape([1 0 0 0 0; 0 1 0 1 0; 0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1]', 25,1);
+TestData(:,10) = reshape([1 0 0 0 1; 0 1 1 1 0; 0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1]', 25,1);
+TestData(:,11) = reshape([1 0 0 0 1; 0 1 0 1 0; 0 0 1 1 0; 0 1 0 1 1; 1 0 1 0 1]', 25,1);
+TestData(:,12) = reshape([1 0 0 0 1; 0 1 0 1 0; 0 0 1 0 0; 0 1 0 1 0; 1 1 0 0 1]', 25,1);
+TestData(:,13) = reshape([1 0 0 0 1; 0 1 0 1 0; 0 0 1 1 0; 0 1 0 1 0; 1 0 0 0 1]', 25,1);
+TestData(:,14) = reshape([1 0 0 0 1; 0 1 0 1 0; 1 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1]', 25,1);
 % Daiya and Daiya + 1bit error
-TestData(:,15) = reshape([1 1 0;1 0 1;0 1 0]', 9,1);
-TestData(:,16) = reshape([0 0 0;1 0 1;0 1 0]', 9,1);
-TestData(:,17) = reshape([0 1 1;1 0 1;0 1 0]', 9,1);
-TestData(:,18) = reshape([0 1 0;0 0 1;0 1 0]', 9,1);
-TestData(:,19) = reshape([0 1 0;1 0 0;0 1 0]', 9,1);
-TestData(:,20) = reshape([0 1 0;1 0 1;1 1 0]', 9,1);
-TestData(:,21) = reshape([0 1 0;1 0 1;0 0 1]', 9,1);
+TestData(:,15) = reshape([0 0 1 0 1; 0 1 0 1 0; 1 0 0 0 1; 0 1 0 1 0; 0 0 1 0 0]', 25,1);
+TestData(:,16) = reshape([0 0 1 0 0; 1 1 0 1 0; 1 0 0 0 1; 0 1 0 1 0; 0 0 1 0 0]', 25,1);
+TestData(:,17) = reshape([0 0 1 0 0; 0 1 0 1 0; 1 1 0 0 1; 0 1 0 1 0; 0 0 1 0 0]', 25,1);
+TestData(:,18) = reshape([0 0 1 0 0; 0 1 0 1 0; 0 0 0 0 1; 0 1 1 1 0; 0 0 1 0 0]', 25,1);
+TestData(:,19) = reshape([0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1; 0 1 0 1 0; 1 0 1 0 0]', 25,1);
+TestData(:,20) = reshape([0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1; 0 1 0 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,21) = reshape([0 0 1 0 0; 0 1 0 1 0; 1 0 0 0 1; 0 1 0 1 0; 0 0 0 0 0]', 25,1);
 % Plus and Plus + 1bit error
-TestData(:,22) = reshape([1 1 0;1 1 1;0 1 0]', 9,1);
-TestData(:,23) = reshape([0 0 0;1 1 1;0 1 0]', 9,1);
-TestData(:,24) = reshape([0 1 1;1 1 1;0 1 0]', 9,1);
-TestData(:,25) = reshape([0 1 0;0 1 1;0 1 0]', 9,1);
-TestData(:,26) = reshape([0 1 0;1 1 0;0 1 0]', 9,1);
-TestData(:,27) = reshape([0 1 0;1 1 1;1 1 0]', 9,1);
-TestData(:,28) = reshape([0 1 0;1 1 1;0 0 0]', 9,1);
+TestData(:,22) = reshape([0 0 1 1 0; 0 0 1 0 0; 1 1 1 1 1; 0 0 1 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,23) = reshape([0 0 1 0 0; 1 0 1 0 0; 1 1 1 1 1; 0 0 1 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,24) = reshape([0 0 1 0 0; 0 0 0 0 0; 1 1 1 1 1; 0 0 1 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,25) = reshape([0 0 1 0 0; 0 0 1 0 0; 1 0 1 1 1; 0 0 1 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,26) = reshape([0 0 1 0 0; 0 0 1 0 0; 1 1 1 1 1; 0 1 1 0 0; 0 0 1 0 0]', 25,1);
+TestData(:,27) = reshape([0 0 1 0 0; 0 0 1 0 0; 1 1 1 1 1; 0 0 1 1 0; 0 0 1 0 0]', 25,1);
+TestData(:,28) = reshape([0 0 1 0 0; 0 0 1 0 0; 1 1 1 1 1; 0 0 1 0 0; 0 0 0 0 0]', 25,1);
 
 for i = 1:7
     TLabelData(:,i) = LabelData(:,1);
@@ -92,11 +100,11 @@ end
 
 % 元のデータを画像として表示
 figure(11);
-imshow(reshape(TestData(:,1),3,3), 'InitialMagnification','fit');
+imshow(reshape(TestData(:,1),5,5), 'InitialMagnification','fit');
 
 
 % Parameter setting
-Layer1 = 9;                     % Number of input layer units
+Layer1 = 25;                     % Number of input layer units
 Layer2 = 2;                     % Number of hidden layer units
 Layer3 = Layer1;                % Number of output layer units
 
@@ -120,7 +128,7 @@ b3 = (-0.5)*ones(Layer3,1);
 eta = 0.001;		%学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
                     %If the learning rate is too high, the updated coefficient becomes too large and the cost may not decrease
 
-epoch = 10000;
+epoch = 5000;
 
 %% Pre-learning Test
 X = TestData;
@@ -170,7 +178,7 @@ box('on');
 
 % 学習前を画像として表示
 figure(12);
-imshow(reshape(a3(:,1),3,3), 'InitialMagnification','fit');
+imshow(reshape(a3(:,1),5,5), 'InitialMagnification','fit');
 %% VAE Learning
 X = TestData;
 t = TLabelData;
@@ -202,7 +210,7 @@ fprintf('a3\n');        disp(a3);
 % Test input after the study and display a graph of the distribution of hidden layer.
 figure(2);
 hold on;
-plot(a2(1,1), a2(2,1),'oy');
+plot(a2(1,1), a2(2,1),'om');
 for i = 2:7
     plot(a2(1,i), a2(2,i),'or');
 end
@@ -222,12 +230,17 @@ xlabel('y_1 = a^2_1'); ylabel('y_2 = a^2_2');
 title('Latent Variable (Final weights and bias)');
 box('on');
 
+
+
 % 学習前を画像として表示
 figure(13);
-imshow(reshape(a3(:,1),3,3), 'InitialMagnification','fit');
+imshow(reshape(a3(:,1),5,5), 'InitialMagnification','fit');
 
 % 学習過程のグラフ表示（各エポックごとのの誤差関数の値）
 % Graphically display the learning process (Error function values for each epoch)
 figure(3);
 plot(E);
 xlabel('Epoch'); ylabel('Error');
+
+% 学習後の潜在空間を使用して画像を出力
+output_function(w3, b3);
