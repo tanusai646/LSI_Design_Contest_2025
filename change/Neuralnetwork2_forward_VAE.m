@@ -47,6 +47,8 @@ eps = randn(size(z2_mean));
 z = a2_mean + sqrt(a2_var).*eps;
 
 z3 = w23 * z + b3;                     % 復元層（出力層）の重み付き入力        input weight for hidden layer
-a3= 1./(1+exp(-z3));                    % 復元層の出力                output for hidden layer
+z3 = z3/64.0;
+a3= 1.0001 ./(1+exp(-z3));                    % 復元層の出力                output for hidden layer
 
+disp(a3);
 end

@@ -16,8 +16,18 @@ close all;
 
 rng(2025);          % Set random seed.
 
+%% 各種変数設定
+
+
+% Step size
+eta = 0.0001;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
+				%Learning rate. If the learning rate is too high, the updated coefficient becomes too large and the cost may not decreas
+epoch = 100000;  %実行回数
+
+
+
 %% 初期データの取得
-for i = 1:4
+for i = 1:2
     filename = sprintf("block%d.bmp", i);
     filepath = fullfile("Blocks", filename);
     New64(:,:,i) = double(im2gray(imread(filepath)))/255.0;
@@ -26,14 +36,14 @@ end
 figure(100); 
 subplot(2,1,1);
 imshow(New64(:,:,1));
-subplot(2,1,2);imshow(New64(:,:,4));
+subplot(2,1,2);imshow(New64(:,:,2));
 
 imagex = 16; 
 imagey=16;
 
 % 横方向に順に並べた縦ベクトルを作るには、'をつけておく。
 %　Teacher data of 〇　（新しいソールの教師データ）
-for i = 1:3
+for i = 1:1
     TrainData(:,i) = reshape(New64(:,:,i)', imagex*imagey,1);
     LabelData(:,i) = TrainData(:,i); 
 end
@@ -47,7 +57,7 @@ end
 % Create test data
 % Maru and Maru + 1bit error
 TestData(:,1) = reshape(New64(:,:,1)', imagex*imagey,1);
-TestData(:,2) = reshape(New64(:,:,4)', imagex*imagey,1);
+TestData(:,2) = reshape(New64(:,:,2)', imagex*imagey,1);
 
 for i =1:2
     TLabelData(:,i) = TestData(:,i);
@@ -59,7 +69,7 @@ end
 % Parameter setting
 
 Layer1 = imagex*imagey;                     % 入力層のユニット数
-Layer2 = 8;                     % 中間層（隠れ層，AEの出力層）のユニット数
+Layer2 = 2;                     % 中間層（隠れ層，AEの出力層）のユニット数
 Layer3 = Layer1;                % 復元層（出力層）のユニット数
 
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
@@ -78,11 +88,7 @@ b2_mean = randn(Layer2,1);
 b2_var = randn(Layer2,1);
 b3 = randn(Layer3,1);
 
-% Step size
-eta = 0.0001;		%学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
-				%Learning rate. If the learning rate is too high, the updated coefficient becomes too large and the cost may not decrease
 
-epoch = 10000;  
 %epoch = 1000000;  
 
 %%
@@ -91,7 +97,7 @@ epoch = 10000;
 X = TestData;
 t = TLabelData;
 
-[z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3);
+[z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork2_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3);
 
 fprintf('Initial Weight\n');
 % fprintf('w12_mean\n');   disp(w12_mean);
@@ -135,13 +141,13 @@ end
 tic;
 X = TrainData;
 t = LabelData;
-[w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_mean_t,b2_var_t,b3_t,C] = Neuralnetwork_VAE(X,t,w12_mean,w12_var,w23,b2_mean,b2_var,b3,eta,epoch,L2func,L3func);
+[w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_mean_t,b2_var_t,b3_t,C] = Neuralnetwork2_VAE(X,t,w12_mean,w12_var,w23,b2_mean,b2_var,b3,eta,epoch,L2func,L3func);
 toc
 
 %% 学習後のテスト
 X = TestData;
 
-[z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3);
+[z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork2_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3);
 
 % 値の表示
 fprintf('Final Weight\n');

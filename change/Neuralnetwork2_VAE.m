@@ -32,7 +32,7 @@
 %
 % see also OX_judge_VAE, Neuralnetwork_VAE, Neuralnetwork_forward_VAE, Neralnetwork_generate_VAE.
 %
-function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_mean_t,b2_var_t,b3_t,C] = Neuralnetwork_VAE(X,t,w12_mean,w12_var,w23,b2_mean,b2_var,b3,eta,epoch,L2func,L3func)
+function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_mean_t,b2_var_t,b3_t,C] = Neuralnetwork2_VAE(X,t,w12_mean,w12_var,w23,b2_mean,b2_var,b3,eta,epoch,L2func,L3func)
 
         %% データサイズが大きい場合は，変数の履歴をセーブしない
 %     w12_mean_t = zeros(size(w12_mean,1),size(w12_mean,2),epoch);
@@ -92,7 +92,7 @@ function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_m
                 imshow(reshape(a3(:,k), [16 16])');                   % 教師画像を入れたときの出力画像
             end
             subplot(size(a3,2)+3,1,size(a3,2)+1);
-            plot(c); axis([0 64*64 0 2]);
+            plot(c); axis([0 16*16 0 2]);
             title(sprintf('%d/%d, Reconstruction Error (BCE)', j, epoch));
             subplot(size(a3,2)+3,1,size(a3,2)+2);
             plot(L); axis([0 128 0 100]);
@@ -101,7 +101,8 @@ function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_m
             plot(C(1,:)); 
             title(sprintf('Error (Total)', j, epoch));
         else
-        end        
+        end
+        
         %%%%%
 
         dCda3 = -t./a3 + (1-t)./(1-a3);         % -p/q + 1-p/1-q (E = -p+logq - (1-p)*log(1-q) = -t_1*log a-3_1 -(1-t_1)*log (1-a-3_1) )
@@ -160,6 +161,8 @@ function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_m
      b2_var_t = b2_var;           % b2_t = zeros(size(b2,1), size(b2,2),epoch);
      b3_t = b3;
     end
+
+    disp(a3);
 end
 
 
