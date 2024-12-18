@@ -1,0 +1,13 @@
+%% 縦ベクトル画像データをブロックに戻し，そのブロック結合して画像データにするプログラム
+
+%% エクセル上のテーブルを読み取る
+t = readtable('a3_output.xlsx');
+
+for i = 1:256
+    % 16×16行列に変換
+    block(:,:,i) = reshape(t(:,i), [16, 16]);
+    filename = sprintf("block_out%d.bmp", i);
+    filepath = fullfile("/")
+    % 白黒画像として保存
+    imwrite(block(:,:,i), 'output_image.png');
+end

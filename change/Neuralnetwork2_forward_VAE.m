@@ -30,7 +30,11 @@
 function [z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork2_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3)
 
 z2_mean = w12_mean * X + b2_mean;                      % 中間層（隠れ層）の重み付き入力        input weight for hidden layer
-z2_var = w12_var * X + b2_var;                      % 中間層（隠れ層）の重み付き入力        input weight for hidden layer
+z2_var = w12_var * X + b2_var;                      % 中間層（隠れ層）の重み付き入力
+
+z2_mean = z2_mean/64;
+z2_var = z2_var/64;
+% input weight for hidden layer
 % if(L2func == 'Sigmoid')                 % 中間層（隠れ層）の出力a2
 %     a2 = 1./(1+exp(-z2));               % 中間層（隠れ層）の出力a2（活性化関数：シグモイド関数）
 % elseif(L2func == 'ReLUfnc')
@@ -49,6 +53,4 @@ z = a2_mean + sqrt(a2_var).*eps;
 z3 = w23 * z + b3;                     % 復元層（出力層）の重み付き入力        input weight for hidden layer
 z3 = z3/64.0;
 a3= 1.0001 ./(1+exp(-z3));                    % 復元層の出力                output for hidden layer
-
-disp(a3);
 end

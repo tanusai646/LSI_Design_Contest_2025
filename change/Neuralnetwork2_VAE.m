@@ -87,17 +87,15 @@ function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_m
         %%%%% チェックのための画像表示
         if rem(j,250)== 0
             figure(103);
-            for k = 1:size(a3,2)
-                subplot(size(a3,2)+3,1,k);
-                imshow(reshape(a3(:,k), [16 16])');                   % 教師画像を入れたときの出力画像
-            end
-            subplot(size(a3,2)+3,1,size(a3,2)+1);
+            subplot(4,1,1);
+            imshow(reshape(a3(:,1), [16 16])');                   % 教師画像を入れたときの出力画像
+            subplot(4,1,2);
             plot(c); axis([0 16*16 0 2]);
             title(sprintf('%d/%d, Reconstruction Error (BCE)', j, epoch));
-            subplot(size(a3,2)+3,1,size(a3,2)+2);
+            subplot(4,1,3);
             plot(L); axis([0 128 0 100]);
             title(sprintf(' KL Divergence'));
-            subplot(size(a3,2)+3,1,size(a3,2)+3);
+            subplot(4,1,4);
             plot(C(1,:)); 
             title(sprintf('Error (Total)', j, epoch));
         else
@@ -161,8 +159,6 @@ function [w12_mean,w12_var,w23,b2_mean,b2_var,b3,w12_mean_t,w12_var_t,w23_t,b2_m
      b2_var_t = b2_var;           % b2_t = zeros(size(b2,1), size(b2,2),epoch);
      b3_t = b3;
     end
-
-    disp(a3);
 end
 
 
