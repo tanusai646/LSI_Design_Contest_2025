@@ -18,7 +18,7 @@ rng(2025);          % Set random seed.
 
 %% 各種変数設定
 % 入力画像数の設定
-input_count = 256;
+input_count = 10;
 
 % imageの画像の大きさ設定
 imagex = 16; 
@@ -28,11 +28,11 @@ imagey=16;
 % Step size
 eta = 0.0001;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
 				%Learning rate. If the learning rate is too high, the updated coefficient becomes too large and the cost may not decreas
-epoch = 120000;  %実行回数
+epoch = 100000;  %実行回数
 
 % レイヤーの設定
 Layer1 = imagex*imagey;                     % 入力層のユニット数
-Layer2 = 32;                     % 中間層（隠れ層，AEの出力層）のユニット数
+Layer2 = 3;                     % 中間層（隠れ層，AEの出力層）のユニット数
 Layer3 = Layer1;                % 復元層（出力層）のユニット数
 
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
@@ -62,7 +62,7 @@ end
 %% 教師データを縦ベクトルにし，LabelDataに格納
 % 横方向に順に並べた縦ベクトルを作るには、'をつけておく。
 %　Teacher data of 〇　（新しいソールの教師データ）
-for i = 1:input_count-1
+for i = 1:input_count
     TrainData(:,i) = reshape(New64(:,:,i)', imagex*imagey,1);
     LabelData(:,i) = TrainData(:,i); 
 end

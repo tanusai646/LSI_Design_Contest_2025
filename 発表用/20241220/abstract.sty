@@ -1,0 +1,23 @@
+%--------------------- abstract.sty ---------------------
+%                ver.1.0  by S.Ishida       (2003.12.26.)
+%                ver.1.1 revised by M.Kasai (2004.01.15.)
+%                ver.1.1.1 UTF-8 に by M.Kasai (2012.01.23)
+
+\oddsidemargin  4mm %奇数頁左マージン
+\evensidemargin 4mm %偶数頁左マージン
+\textwidth    150mm %本文の幅
+\textheight   240mm %本文の高さ
+\topmargin    -13mm %タイトルの上のスペース
+%
+\pagestyle{empty}   %ページ番号をつけない
+\parindent      1zw %字下げ
+\baselineskip  18pt %行間
+%
+%\maketitle を定義．
+\renewcommand{\maketitle}{\begin{center}{\LARGE\textbf \@title \par}
+\vskip 4.5mm {\normalsize\textbf \@author \par}
+\end{center}\vskip 3.0mm}
+\date{}
+%
+%
+%------------------ end of abstract.sty ------------------
