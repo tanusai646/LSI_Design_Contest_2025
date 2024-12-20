@@ -1,5 +1,5 @@
 %% 縦ベクトル画像データをブロックに戻し，そのブロック結合して画像データにするプログラム
-
+clear; close all;
 %% エクセル上のテーブルを読み取る
 t = readtable('a3_output.xlsx');
 
@@ -28,7 +28,7 @@ image_height = block_size * blocks_per_col;
 image_width = block_size * blocks_per_row;
 
 % 元の画像を初期化
-original_image = zeros(image_height, image_width, 'uint8');
+recon_image = zeros(image_height, image_width, 'double');
 
 % ブロックを読み込んで配置
 count = 1;
@@ -39,17 +39,30 @@ for i = 1:blocks_per_col
         filepath = fullfile("Blocks_out", filename);
         
         % ブロックを読み込む
-        block = imread(filepath);
+        block = double(im2gray(imread(filepath)));
         % 元の画像に配置
-        original_image((i-1)*block_size+1:i*block_size, (j-1)*block_size+1:j*block_size) = block;
+        recon_image((i-1)*block_size+1:i*block_size, (j-1)*block_size+1:j*block_size) = block;
         count = count + 1;
     end
 end
 
 % 復元した画像を保存
-imwrite(original_image, 'output.bmp');
+imwrite(uint8(recon_image), 'output.bmp');
+original_image = double(rgb2gray(imread("input.bmp")));
+
+difference = abs(original_image-recon_image);
+
+MSE = sum(abs(original_image - recon_image).^2)/();
+PSNR = 10*log10((255)^2/MSE);
+fprintf("MSE = %d, PSNE = %d\n", MSE, PSNR);
 
 % 復元した画像を表示
 figure()
-imshow(original_image, []);
+subplot(1,3,1);
+imshow(uint8(original_image));
+title('Original Image');
+subplot(1,3,2);
+imshow(uint8(recon_image));
 title('Reconstructed Image');
+subplot(1,3,3);
+imshow(uint8(abs(original_image-recon_image)));

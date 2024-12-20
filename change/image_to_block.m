@@ -4,11 +4,13 @@ clc, clear; close all;
 % 指定された画像を開く
 % 画像をモノクロに変更
 image = double(rgb2gray(imread("input.bmp")))/255.0; % 0~255を0~1にする
+imwrite(image, 'input_gray.bmp')
+
 SizeX = size(image,2) / 16;
 SizeY = size(image,1) / 16;
 
 
-% 画像を8×8のブロックに変える
+% 画像を16×16のブロックに変える
 count = 1;
 for i = 1:SizeY
     for j = 1:SizeX
