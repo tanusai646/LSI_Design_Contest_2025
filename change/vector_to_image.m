@@ -52,11 +52,12 @@ original_image = double(rgb2gray(imread("input.bmp")));
 
 difference = abs(original_image-recon_image);
 
+%% 評価データ作成
 MSE = sum(sum(abs(original_image(:,:) - recon_image(:,:)).^2))/(image_width*image_height);
 PSNR = 10*log10((255)^2/MSE);
-fprintf("MSE = %.3f [dB], PSNE = %.3f [dB]\n", MSE, PSNR);
+fprintf("MSE = %.3f , PSNR = %.3f [dB]\n", MSE, PSNR);
 
-% 復元した画像を表示
+%% 復元した画像を表示
 figure()
 subplot(1,3,1);
 imshow(uint8(original_image));
