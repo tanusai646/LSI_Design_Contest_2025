@@ -39,9 +39,17 @@ title('4. Morphological Processing');
 % 5. マスク適用で道路部分を抽出
 road_only = bsxfun(@times, img_resized, cast(processed_mask, 'like', img_resized));
 
+processed_mask_dou = double(processed_mask);
 subplot(2, 3, 5);
 imshow(road_only);
+road_only_double = double(road_only);
 title('5. Extracted Road Region');
+
+filename='test2.xlsx';% ファイル名　拡張子がないと自動的に"txt"になる
+A=magic(512);% 書き込むデータ
+sheet_n='ABC';%書き込むシート
+range_n='A1';%書き込む位置 省略した場合は左上がA1になる
+writematrix(A,filename,'Sheet',sheet_n,'Range',range_n);%エクセルファイルに書き出し 
 
 % 6. 全体結果の表示
 subplot(2, 3, 6);
