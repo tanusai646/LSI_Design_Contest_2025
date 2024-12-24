@@ -27,3 +27,5 @@ subplot(1,2,1);
 imshow(uint8(img_gray));
 subplot(1,2,2);
 imshow(uint8(img_road));
+
+imwrite(uint8(img_road), "road_only2.bmp");
