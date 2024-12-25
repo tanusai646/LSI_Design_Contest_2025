@@ -28,7 +28,7 @@ imagey=16;
 % Step size
 eta = 0.0001;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
 				%Learning rate. If the learning rate is too high, the updated coefficient becomes too large and the cost may not decreas
-epoch = 80000;  %実行回数
+epoch = 10000;  %実行回数
 
 % レイヤーの設定
 Layer1 = imagex*imagey;                     % 入力層のユニット数
@@ -38,18 +38,29 @@ Layer3 = Layer1;                % 復元層（出力層）のユニット数
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
 L3func = 'Sigmoid_BCE';         % 復元層のアルゴリズムと誤差（'Sigmoid_MSE' or Default : 'Sigmoid_BCE' (Binary Cross Entropy)）
 
-%% 道路ブロックの情報取得
+%% ブロックの情報取得
+% 道路ブロックの情報取得
 block_num = readtable("road_only_block.xlsx");
 block_num = table2array(block_num);
 block_num_size = size(block_num,2);
 
+% 元画像の情報取得
+
+
 
 %% 初期データの取得
-for i = 1:block_num_size
-    num = block_num(1,i);
-    filename = sprintf("block_test%d.bmp", num);
-    filepath = fullfile("Blocks_test", filename);
-    New64(:,:,i) = double(im2gray(imread(filepath)))/255.0;
+% 道路の情報のみをNew64_1に格納
+for i = block_num_size
+    num = block_num(num,1);
+    filename = sprintf("fullblock_test%d.bmp", num);
+    filepath = fullfile("fullBlocks_test", filename);
+    New64_1(:,:,i) = double(im2gray(imread(filepath)))/255.0;
+end
+% すべての画像をNew64_2に格納
+for i = 1:1024
+    filename = sprintf("fullblock_test%d.bmp", i);
+    filepath = fullfile("fullBlocks_test", filename);
+    New64_2(:,:,i) = double(im2gray(imread(filepath)))/255.0;
 end
 
 figure(100); 
@@ -59,7 +70,7 @@ figure(100);
 
 for i = 1:2
     subplot(2,1,i);
-    imshow(New64(:,:,i)); %サイズ変更
+    imshow(New64_1(:,:,i)); %サイズ変更
 end
 
 
@@ -68,14 +79,14 @@ end
 % 横方向に順に並べた縦ベクトルを作るには、'をつけておく。
 %　Teacher data of 〇　（新しいソールの教師データ）
 for i = 1:block_num_size
-    TrainData(:,i) = reshape(New64(:,:,i)', imagex*imagey,1);
+    TrainData(:,i) = reshape(New64_1(:,:,i)', imagex*imagey,1);
     LabelData(:,i) = TrainData(:,i); 
 end
 
 %% テストデータの入力
 % テストデータとして教師データ及び，教師データの次のデータを入力
 for i = 1:block_num_size
-    TestData(:,i) = reshape(New64(:,:,i)', imagex*imagey,1);
+    TestData(:,i) = reshape(New64_2(:,:,i)', imagex*imagey,1);
     TLabelData(:,i) = TestData(:,i);
 end
 
@@ -138,7 +149,7 @@ end
 % title('Latent Variable (Initial weights and bias)');
 % box('on');
 
-%% AE の学習
+%% VAE の学習
 tic;
 X = TrainData;
 t = LabelData;
@@ -211,5 +222,5 @@ xlabel('Epoch'); ylabel('Error');
 % fprintf('a3\n');    disp(a3);
 
 %% ブロック番号をエクセルに仮保存
-writematrix(a3, "a3_output.xlsx");
+writematrix(a3, "fulla3_output.xlsx");
 
