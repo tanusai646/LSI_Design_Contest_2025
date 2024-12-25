@@ -39,7 +39,7 @@ L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or 
 L3func = 'Sigmoid_BCE';         % 復元層のアルゴリズムと誤差（'Sigmoid_MSE' or Default : 'Sigmoid_BCE' (Binary Cross Entropy)）
 
 %% 道路ブロックの情報取得
-block_num = readtable("road_only_block2.xlsx");
+block_num = readtable("road_only_block.xlsx");
 block_num = table2array(block_num);
 block_num_size = size(block_num,2);
 

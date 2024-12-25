@@ -9,7 +9,7 @@ t = readtable('a3_output.xlsx');
 % データを数値型に変換（例: double）
 data = table2array(t);
 
-block_num = readtable("road_only_block2.xlsx");
+block_num = readtable("road_only_block.xlsx");
 block_num = table2array(block_num);
 block_num_size = size(block_num,2);
 
@@ -65,7 +65,7 @@ end
 
 % 復元した画像を保存
 imwrite(uint8(recon_image), 'output_test.bmp');
-original_image = double(imread("road_only2.bmp"));
+original_image = double(imread("recon_image.bmp"));
 
 difference = abs(original_image-recon_image);
 

@@ -18,7 +18,7 @@ block_num = []; % 引き渡すブロックの番号を読み取り
 
 %% 画像を16×16のブロックに変える
 count = 1;
-num = 0;
+flag = 0;
 for i = 1:SizeY
     for j = 1:SizeX
         % 16x16のブロックを切り出す
@@ -26,19 +26,23 @@ for i = 1:SizeY
         % ファイル名を作成
         filename = sprintf("block_test%d.bmp", count);
         filepath = fullfile("/Blocks_test", filename);
-        % 道路の一部が入っているか確認
-        for k = 1:16
-            for l = 1:16
-                num = num + block(k,l);
-            end
+        % ブロックの左上，左下，右上または右下にブラックがないか確認
+        if block(1,1) == 0
+            flag = 1;
+        elseif block(1,16) == 0
+            flag = 1;
+        elseif block(16,1) == 0
+            flag = 1;
+        elseif block(16,16) == 0
+            flag = 1;
         end
         % ブロックを保存
-        if num ~= 0
+        if flag == 0
             imwrite(block, filepath);
             block_num = [block_num, count];
         end
         count = count+1;
-        num = 0;
+        flag = 0;
     end
 end
 
@@ -87,6 +91,7 @@ for i = 1:blocks_per_col
         count = count + 1;
     end
 end
-
+writematrix(recon_image, "recon_block.xlsx")
+imwrite(uint8(recon_image),"recon_image.bmp");
 subplot(1,2,2);
 imshow(uint8(recon_image));
