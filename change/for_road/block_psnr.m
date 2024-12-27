@@ -8,6 +8,7 @@ clear;
 block_all = 1024;
 
 block_PSNR = [];
+test_num = [];
 
 %% ブロック毎のPSNRの比較
 for i = 1:block_all
@@ -36,6 +37,7 @@ for i = 1:block_all
         PSNR = 10*log10((255)^2/MSE);
         
         block_PSNR = [block_PSNR, PSNR];
+        test_num = [test_num, i];
     else
         % ファイルが存在しない場合の処理
         fprintf('File not found: %s\n', filepath_2); % ファイルがないことを通知
@@ -45,5 +47,6 @@ end
 
 block_PSNR_mat = reshape(block_PSNR, 32, 32);
 block_PSNR_matt = block_PSNR_mat';
-writematrix(block_PSNR_mat, "block_PSNR.xlsx");
+writematrix(block_PSNR_matt, "block_PSNR.xlsx");
+test_num = reshape(test_num, 32, 32)';
 
