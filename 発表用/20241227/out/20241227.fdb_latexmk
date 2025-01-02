@@ -1,12 +1,12 @@
 # Fdb version 4
-["dvipdf"] 1735262503 "out/20241220.dvi" "out/20241220.pdf" "out/20241220" 1735262505 0
-  "out/20241220.dvi" 1735262503 12584 48ff579fd99e21390890c2437e623199 "latex"
+["dvipdf"] 1735269096 "out/20241227.dvi" "out/20241227.pdf" "out/20241227" 1735269098 0
+  "out/20241227.dvi" 1735269096 11716 1a3a67f23eaded571e8e58e291befbcc "latex"
   (generated)
-  "out/20241220.pdf"
+  "out/20241227.pdf"
   (rewritten before read)
-["latex"] 1735262498 "c:/Users/imayu/Documents/program/LSI Desgin Contest/2025/発表用/20241227/20241220.tex" "out/20241220.dvi" "20241220" 1735262505 0
-  "20241220.tex" 1734626209 9316 a515f78cfd6e9f9fb143b56ce0fd7667 ""
-  "c:/Users/imayu/Documents/program/LSI Desgin Contest/2025/発表用/20241227/20241220.tex" 1734626209 9316 a515f78cfd6e9f9fb143b56ce0fd7667 ""
+["latex"] 1735269091 "c:/Users/imayu/Documents/program/LSI Desgin Contest/2025/発表用/20241227/20241227.tex" "out/20241227.dvi" "20241227" 1735269098 0
+  "20241227.tex" 1735269090 9030 cdeabc2a6170b88f50849ae8afbbd7f1 ""
+  "c:/Users/imayu/Documents/program/LSI Desgin Contest/2025/発表用/20241227/20241227.tex" 1735269090 9030 cdeabc2a6170b88f50849ae8afbbd7f1 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693405946 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1693405512 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm" 1693408683 468 53f854284f6afa6c36aaa2d1090ecc12 ""
@@ -81,18 +81,20 @@
   "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1693403785 40967 d940221f8762fd5848760382d97d1226 ""
   "c:/texlive/2023/texmf-var/web2c/euptex/platex.fmt" 1693410536 8115947 c0cf0e01e7bccb445ca55f2514bd035c ""
   "c:/texlive/2023/texmf.cnf" 1693410370 713 e69b156964470283e0530f5060668171 ""
-  "figure/archive20241218-figure3.png" 1734623632 25124 d2e5f5e9017165f3fe178c978b8b8196 ""
-  "figure/archive20241219-figure102_1.png" 1734593843 1449 cf99de8f79300596348718032a0e27c3 ""
-  "figure/archive20241219-figure102_2.png" 1734593852 1352 f39902baa4025290c56ab044e8d92c99 ""
-  "figure/archive20241219-figure3-2.png" 1734623143 23401 37c7cb3d038b97cd5f14e3d853902b63 ""
-  "figure/archive20241219-figure3.png" 1734593035 23071 41fd929095a6f0c03ccfdc967e96c435 ""
-  "figure/block1.bmp" 1734247519 1334 d114359eaf0d7ca34ffa5ac5b995b30b ""
-  "figure/block2.bmp" 1734247519 1334 50f5b08806956ce8434830749f59a817 ""
-  "figure/output.bmp" 1734591665 66614 34a90512eff6876cf1370e81cc819616 ""
+  "figure/archive_20241224_resul11-2.png" 1735056044 24131 9f6283e68e7fbefd06611c67660c78d8 ""
+  "figure/archive_20241225_psnr2.png" 1735267578 15149 0712bbde3a470840eceb2f8e2453ef2a ""
+  "figure/archive_20241225_psnr4.png" 1735268076 17955 fae9949d116206330f0649d70fbad882 ""
+  "figure/output_test11.bmp" 1735056057 263222 30a479433c3561f1d3a6967e16150aa0 ""
+  "figure/output_test2.bmp" 1735267382 263222 859b4d06640005974972ae4a5776fc75 ""
+  "figure/output_test4.bmp" 1735268046 263222 61e4d78186e3e096dc99091b70793f6f ""
+  "figure/road_image2.bmp" 1735108875 786486 d05793c3438f11f758bca4af5dfb6fae ""
+  "figure/road_image4.png" 1735268701 418559 94cd95f575aeaf40f92015360f2e7c07 ""
+  "figure/road_only2.bmp" 1735216186 263222 69d32183c4c41a3d66e31a42c0730d01 ""
+  "figure/untitled1.png" 1735266279 25121 ed523bc7adf85f875fdf480ab34a1741 ""
   "jlisting.sty" 1698678000 6230 9fa8fe97d5afbd5a433990256cc4d5a3 ""
-  "out/20241220.aux" 1735262503 3578 6c78db8aa14cc8b67b8d1c4fe8b36009 "latex"
+  "out/20241227.aux" 1735269096 3782 5d7cf3fe97c2bda21b69e1fc5ecab4e7 "latex"
   (generated)
-  "out/20241220.aux"
-  "out/20241220.dvi"
-  "out/20241220.log"
+  "out/20241227.aux"
+  "out/20241227.dvi"
+  "out/20241227.log"
   (rewritten before read)

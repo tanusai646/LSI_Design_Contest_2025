@@ -5,7 +5,7 @@ clear; close all;
 
 %% 道路画像を入力し，道路情報のみを保存する部分
 % 道路画像(GRBカラー)
-img_in = double(imread("road_image3.bmp"));
+img_in = double(imread("road_image4.bmp"));
 
 % カラー画像を白黒に変換
 img_gray = 0.299*img_in(:,:,1) + 0.587*img_in(:,:,2) + 0.114*img_in(:,:,3);
@@ -122,6 +122,7 @@ figure();
 colormap(jet);
 imagesc(block_PSNR_mat);
 colorbar;
+clim([0, 40]);
 
 figure();
 histogram(block_PSNR);

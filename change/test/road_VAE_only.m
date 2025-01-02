@@ -1,7 +1,7 @@
 %% 今まで作成したプログラムを結合させたものを作成
 
 %% 初期データリセット
-clc, clear; close all;
+clear; close all;
 
 %% 道路画像を入力し，道路情報のみを保存する部分
 % 道路画像(GRBカラー)
@@ -70,15 +70,10 @@ for i = 1:size_y
     end
 end
 
-
-
 clearvars block_all_road count count_road;
 
 %% VAE部分
-% 将来的にはVAEの学習部分は別で用意したい
 rng(2025);          % Set random seed.
-
-input_count = 1024;
 
 % Step size
 eta = 0.0001;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる
@@ -86,7 +81,7 @@ epoch = 10000;  %実行回数
 
 % レイヤーの設定
 Layer1 = size_b*size_b;         % 入力層のユニット数
-Layer2 = 32;                    % 中間層（隠れ層，AEの出力層）のユニット数
+Layer2 = 8;                    % 中間層（隠れ層，AEの出力層）のユニット数
 Layer3 = Layer1;                % 復元層（出力層）のユニット数
 
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
@@ -102,9 +97,6 @@ New64_2(:,:,:) = block_all/255.0;
 
 
 figure(100); 
-%subplot(2,1,1);
-%imshow(New64(:,:,1));
-%subplot(2,1,2);imshow(New64(:,:,2));
 for i = 1:2
     subplot(2,1,i);
     imshow(New64_1(:,:,i));
@@ -121,11 +113,6 @@ for i = 1:block_num_size
     LabelData(:,i) = TrainData(:,i); 
 end
 
-%% テストデータの入力
-for i = 1:1024
-    TestData(:,i) = reshape(New64_2(:,:,i)', size_b*size_b,1);
-    TLabelData(:,i) = TestData(:,i);
-end
 
 %% 中間層と出力層の重みの初期値
 % Initialization values of weights (Hidden layer and Output layer)
@@ -145,9 +132,8 @@ b3 = randn(Layer3,1);
 X = TestData;
 t = TLabelData;
 
-%[z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork2_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3);
 
-fprintf('VAE begin starding.\n');
+fprintf('VAE begin learning.\n');
 
 tic;
 X = TrainData;
