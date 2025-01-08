@@ -1,0 +1,82 @@
+%% 4. 「技術研究報告」
+\documentclass[technicalreport]{ieicej}
+%\usepackage[dvips]{graphicx}
+%\usepackage[dvipdfmx]{graphicx,xcolor}
+\usepackage[fleqn]{amsmath}
+\usepackage{newtxtext}% 英数字フォントの設定を変更しないでください
+\usepackage[varg]{newtxmath}% % 英数字フォントの設定を変更しないでください
+\usepackage{latexsym}
+%\usepackage{amssymb}
+
+\jtitle{テスト}
+\jsubtitle{テスト2}
+\etitle{test}
+\esubtitle{test2}
+\authorlist{%
+\authorentry[imamura.yuuki475@mail.kyutech.jp]{今村 優希}{Yuki Imamura}{kyutech}
+\authorentry[kawasaki.taiga000@mail.kyutech.jp]{川崎 大雅}{Taiga Kawasaki}{kyutech}
+% \authorentry[メールアドレス]{和文著者名}{英文著者名}{所属ラベル}
+}
+\affiliate[kyutech]{九州工業大学情報工学部 情報・通信工学科 3年\\ 
+  福岡県飯塚市川津680-4}
+  {Kyushu Institute of Technology\\ School of Computer Science and System Engineering\\ Department of Computer Science and Networks}
+%\affiliate[所属ラベル]{和文勤務先\\ 連絡先住所}{英文勤務先\\ 英文連絡先住所}
+\jalcdoi{???????????}% ← このままにしておいてください
+
+\begin{document}
+\begin{jabstract}
+%和文あらまし
+テスト
+\end{jabstract}
+\begin{jkeyword}
+%和文キーワード
+VAE, FPGA, 画像認識
+\end{jkeyword}
+\begin{eabstract}
+%英文アブストラクト
+test
+\end{eabstract}
+\begin{ekeyword}
+%英文キーワード
+VAE, FPGA
+\end{ekeyword}
+\maketitle
+
+\section{はじめに}
+近年，無線通信技術は飛躍的に向上しており，5G通信の普及が進んでいる．
+5Gは従来の4Gなど通信規格と異なり，「高速大容量」「低遅延」「多数同時接続」の3つの特徴を備えており，その中でも「低遅延」と「多数同時接続」は新たな通信環境を構築する上で重要な軸となっている\cite{5g}．
+
+従来の4G通信は，人が使用するスマートフォンや携帯に焦点を当てていた．
+しかし，5Gでは車両，ドローン，センサなどのIoT機器が大量にネットワークに接続されることを前提としている．
+このような環境においては，従来のクラウド中心の処理方式では，トラヒック増加による遅延や負荷集中が生じる可能性があり，5Gの利点を十分に発揮できない問題がある．
+また，今現在のIT業界ではクラウドが主流で，処理の多くを一つ（もしくは複数の）コンピュータで行うという構造である．
+多くの端末から取得したデータをクラウドのみで処理を行うのはある程度限界があり，またトラヒック量が増加して，5Gのメリットを享受できないという問題が発生すると考えられる．
+
+このような課題を解決するため，エッジコンピューティングという技術が近年注目され始めている．
+エッジコンピューティングとは，従来はクラウドで行っていた処理の一部を，ユーザ端末（スマートフォンやIoT機器）の近い位置である基地局やその至近に設置されているサーバなどでデータ処理を行う技術である\cite{edge-com}．
+この技術を用いることでクラウドにかかる処理をエッジコンピューティングで分散することが可能で，通信のトラヒック量，5Gの特徴のひとつである「低遅延」に貢献することも可能である．
+
+そこで，エッジコンピューティングの実現をVAEとFPGAを用いて実現することを考えた．
+(本文を書きながら続きを記述予定)
+
+\section{学習方法}
+何かしら書く
+
+\section{回路設計}
+
+\section{システム評価}
+
+\section{出力結果}
+
+\section{終わりに}
+
+%\bibliographystyle{sieicej}
+%\bibliography{myrefs}
+\begin{thebibliography}{99}% 文献数が10未満の時 {9}
+\bibitem{5g} 
+森川博之, 5G次世代移動通信規格の可能性, 岩波書店, 
+\bibitem{edge-com} 
+田中裕也, 高橋紀之, 河村龍太郎, "IoT時代を拓くエッジコンピューティングの研究開発", NTT技法ジャーナル, vol.27, no.8, pp.59-63, 2015.
+\end{thebibliography}
+
+\end{document}

@@ -76,12 +76,12 @@ clearvars block_all_road count count_road;
 rng(2025);          % Set random seed.
 
 % Step size
-eta = 0.0001;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる
+eta = 0.0005;   %学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる
 epoch = 10000;  %実行回数
 
 % レイヤーの設定
 Layer1 = size_b*size_b;         % 入力層のユニット数
-Layer2 = 8;                    % 中間層（隠れ層，AEの出力層）のユニット数
+Layer2 = 16;                    % 中間層（隠れ層，AEの出力層）のユニット数
 Layer3 = Layer1;                % 復元層（出力層）のユニット数
 
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
