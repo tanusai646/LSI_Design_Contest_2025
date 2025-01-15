@@ -78,7 +78,7 @@ b3 = (-0.5)*ones(Layer3,1);
 eta = 0.001;		%学習率が高すぎると更新した係数が大きくなりすぎてコストが減らなくなる	
                     %If the learning rate is too high, the updated coefficient becomes too large and the cost may not decrease
 
-epoch = 10000;
+epoch = 5000;
 
 %% Pre-learning Test
 X = TestData;

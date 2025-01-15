@@ -49,7 +49,7 @@
 \newif\if@tecrep \@tecrepfalse
 
 \DeclareOption{paper}{%
- \gdef\hd@type{論文}\gdef\tl@type{論\hskip1zw 文}\gdef\@type{P}}
+ \gdef\hd@type{論文}\gdef\tl@type{}\gdef\@type{P}}
 \DeclareOption{invited}{\@papertrue
  \gdef\hd@type{招待論文}\gdef\tl@type{招待論文}\gdef\@type{P}}
 \DeclareOption{comment}{\@papertrue
@@ -1020,17 +1020,13 @@
   \let\@evenhead\@oddhead
  \fi
  \def\@oddfoot{\@Lbot\hfil
-  {\foot@font 電子情報通信学会論文誌\hskip1zw
-    \@field\hskip1zw Vol.\ \@vol\hskip1zw No.\,\@no\hskip1zw
-   pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw
-   %%\ft@year 年\@no 月
-   {\normalfont\copyright}一般社団法人電子情報通信学会\ft@year
+  {\foot@font The 28th LSI Design Contest
   }\hfil
     \llap{{\nombre@font\thepage\hskip3mm}}%
   \@Rbot}%
  \def\@evenfoot{\@Lbot
   \rlap{\hskip3mm{\nombre@font\thepage}}\hfil
-   {\foot@font 電子情報通信学会論文誌\hskip1zw
+   {\foot@font The 28th LSI Design Contest\hskip1zw
     \@field\hskip1zw Vol.\ \@vol\hskip1zw
     No.\,\@no\hskip1zw pp.\,\thepage --\pageref{ieicej@lastpage}\hskip1zw 
     %%\ft@year 年\@no 月
@@ -1052,7 +1048,7 @@
   \@Rtop}%
  \def\@evenhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}\hfil
-   {\Small\head@font 電子情報通信学会論文誌\ 
+   {\Small\head@font The 28th LSI Design Contest\ 
     \hd@year /\@no\ Vol.\ {\let\bfseries\relax \@vol}\ No.\,\@no}%
   \@Rtop}%
 }
@@ -1963,7 +1959,7 @@
 \def\eicid@D{inf}
 \def\@DOI{%
   \footnotetext[0]{%
-   DOI:10.14923/trans\csname eicid@\hold@field\endcsname j.\@jalcdoi}%
+   }%
 }
 
 \if@tecrep %%% technicalreport

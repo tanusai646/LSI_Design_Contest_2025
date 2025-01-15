@@ -1,44 +1,47 @@
-%% 4. 「技術研究報告」
-\documentclass[technicalreport]{ieicej}
+\documentclass[paper]{ieicej}
+%\documentclass[invited]{ieicej}% 招待論文
+%\documentclass[survey]{ieicej}% サーベイ論文
+%\documentclass[comment]{ieicej}% 解説論文
 %\usepackage[dvips]{graphicx}
 %\usepackage[dvipdfmx]{graphicx,xcolor}
 \usepackage[fleqn]{amsmath}
 \usepackage{newtxtext}% 英数字フォントの設定を変更しないでください
 \usepackage[varg]{newtxmath}% % 英数字フォントの設定を変更しないでください
 \usepackage{latexsym}
-%\usepackage{amssymb}
 
-\jtitle{テスト}
-\jsubtitle{テスト2}
-\etitle{test}
-\esubtitle{test2}
+
+\setcounter{page}{1}
+
+\jtitle{今村優希}
+\etitle{imamura yuki}
+
 \authorlist{%
 \authorentry[imamura.yuuki475@mail.kyutech.jp]{今村 優希}{Yuki Imamura}{kyutech}
 \authorentry[kawasaki.taiga000@mail.kyutech.jp]{川崎 大雅}{Taiga Kawasaki}{kyutech}
 % \authorentry[メールアドレス]{和文著者名}{英文著者名}{所属ラベル}
 }
-\affiliate[kyutech]{九州工業大学情報工学部 情報・通信工学科 3年\\ 
-  福岡県飯塚市川津680-4}
-  {Kyushu Institute of Technology\\ School of Computer Science and System Engineering\\ Department of Computer Science and Networks}
+\affiliate[kyutech]{九州工業大学情報工学部 情報・通信工学科 3年\\ 福岡県飯塚市川津680-4}
+  {Kyushu Institute of Technology, School of Computer Science and System Engineering, Department of Computer Science and Networks}
 %\affiliate[所属ラベル]{和文勤務先\\ 連絡先住所}{英文勤務先\\ 英文連絡先住所}
 \jalcdoi{???????????}% ← このままにしておいてください
 
 \begin{document}
-\begin{jabstract}
-%和文あらまし
+\begin{abstract}
+%和文あらまし 500字以内
 テスト
-\end{jabstract}
-\begin{jkeyword}
-%和文キーワード
-VAE, FPGA, 画像認識
-\end{jkeyword}
+
+\end{abstract}
+\begin{keyword}
+%和文キーワード 4〜5語
+VAE, FPGA, エッジコンピューティング
+\end{keyword}
 \begin{eabstract}
-%英文アブストラクト
+%英文アブストラクト 100 words
 test
 \end{eabstract}
 \begin{ekeyword}
 %英文キーワード
-VAE, FPGA
+VAE, FPGA, edge computing
 \end{ekeyword}
 \maketitle
 
@@ -59,17 +62,21 @@ VAE, FPGA
 そこで，エッジコンピューティングの実現をVAEとFPGAを用いて実現することを考えた．
 (本文を書きながら続きを記述予定)
 
-\section{学習方法}
+\section{システム概要}
 何かしら書く
 
-\section{回路設計}
+\section{実行環境（）}
 
-\section{システム評価}
+\section{実行結果 及び 評価}
 
-\section{出力結果}
+\section{考察}
 
-\section{終わりに}
+\section{結論と今後の展望}
+今回は，エッジコンピューティングを意識したVAEとFPGAの手法に関して報告を行った．
 
+\ack
+今回のシステム構築に対して，様々な支援を頂いた方々に感謝する．
+これからも，日本や世界を支えるエンジニアになるために尽力する．
 %\bibliographystyle{sieicej}
 %\bibliography{myrefs}
 \begin{thebibliography}{99}% 文献数が10未満の時 {9}
