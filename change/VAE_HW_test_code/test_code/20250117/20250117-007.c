@@ -5,13 +5,16 @@
 /* Press button 2. Initialization : VAE          */
 /* Press button 3. HW Test                       */
 
-/*20250117-004の変更内容
-20250117-003>>
-SDカードの画像データ（.raw）ファイルを読み込む
+/*20250117-006の変更内容
+20250117-005>>
+実際に画像データを読み込ませてみる
+VAEの学習結果はMATLABのシミュレーションを利用
+HWは9×2×9
+まずは、データ挿入に問題がないか確認
+→ bufferの容量増大
 */
-/*20250117-005の変更内容
-SDカードから読み込んだデータを編集できるかのチェック
-いらない部分の削除
+/*20250117-007の変更内容
+挿入されたデータともともとのHWでVAEを実行してみる
 */
 
 #include <stdio.h>
@@ -30,15 +33,14 @@ SDカードから読み込んだデータを編集できるかのチェック
 #include <string.h>
 #include <math.h>
 
-#define EPOCH (10000)
 
-#define ETA (0.001)
 #define BATCHSIZE (2)
 
-#define NUM_K  (9)
-#define NUM_X  (9)
+#define NUM_K  (256)
+#define NUM_X  (256)
 #define NUM_A2 (2)
 #define NUM_A3 (9)
+#define NUM_IN (256)
 
 #define FLTOFX(x) ((sint32)(x * 65536.0))
 #define FXTOFL(x) ((double)(x / 65536.0))
@@ -178,7 +180,7 @@ void VAE_generate_929_SW(
 }
 
 void AE_forward_929_HW(
-		double w2[][NUM_X], double b2[], double w3[][NUM_A2], double b3[],
+		double w2[][NUM_A3], double b2[], double w3[][NUM_A2], double b3[],
 		double X[], double z[],
 		double z2_hw[], double a2_hw[], double z3_hw[], double a3_hw[])
 {
@@ -397,6 +399,79 @@ void VAE_forward_929_HW(
     return;
 }
 
+VAE_forward_2562256_HW(
+	double w2_mean[][NUM_X], double b2_mean[],
+	double w2_var[][NUM_X], double b2_var[],
+	double w3[][NUM_A2], double b3[],
+	double X[],
+	double z2_mean_hw[], double a2_mean_hw[],
+	double z2_var_hw[], double a2_var_hw[],
+	double z[],
+	double z3_hw[], double a3_hw[], double eps[])
+{
+	int i, j, k, l;
+	// 929のHWに乗せるために調整用変数
+	double w2_mean9[NUM_A2][NUM_A3];
+	double w2_var9[NUM_A2][NUM_A3];
+	double w39[NUM_A3][NUM_A2];
+	double X9[NUM_A3];
+	double b2_mean9[NUM_A2], b2_var9[NUM_A2]; 
+
+	// 929のHWからの出力取得
+	double z2_mean_tmp_hw[NUM_A2], z2_var_tmp_hw[NUM_A2], z3_tmp_hw[NUM_A3];
+	double a2_mean_tmp_hw[NUM_A2], a2_var_tmp_hw[NUM_A2], a3_tmp_hw[NUM_A3];
+	
+	// 929のHWからの出力保管用
+	double sum_z2_mean[NUM_A2];
+	double sum;
+
+	sum_z2_mean[0] = 0.0; sum_z2_mean[1] = 0.0;
+
+	//meanの計算
+	for(i = 0; i < 32; i++){
+		sum = 0;
+		k = 0;
+		// 929に入れるための準備
+		printf("%d\n\r", i);
+		for(j = i*8; j < i*8+8; j++){
+			w2_mean9[0][k] = w2_mean[0][j];
+			w2_mean9[1][k] = w2_mean[1][j];
+
+			X9[k] = X[j];
+			k++;
+		}
+		w2_mean9[0][8] = 0.0; w2_mean9[1][8] = 0.0;
+		X9[8] = 1.0;
+		b2_mean9[0] = 0.0; b2_mean9[1] = 0.0;
+
+		for(l = 0; l < 9; l++){
+			printf("%d %5.3f %5.3f %5.3f\n\r", l, w2_mean9[0][l], w2_mean9[1][l], X9[l]);
+		}
+
+		for(l = 0; l < 9; l++){
+			sum = sum + w2_mean9[0][l] * X[l];
+		}
+
+		// AEを使用
+		AE_forward_929_HW(w2_mean9, b2_mean9, w3, b3, X9, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
+		printf("%7.4f %7.4f %7.4f\n\r", z2_mean_tmp_hw[0], z2_mean_tmp_hw[1], sum);
+		sum_z2_mean[0] = sum_z2_mean[0] + z2_mean_tmp_hw[0];
+		sum_z2_mean[1] = sum_z2_mean[1] + z2_mean_tmp_hw[1];
+		printf("%7.4f %7.4f\n\r", sum_z2_mean[0], sum_z2_mean[1]);
+
+	}
+
+	for(i = 0; i < NUM_A2; i++){
+		z2_mean_tmp_hw[i] = sum_z2_mean[i] + b2_mean[i];
+		z2_mean_tmp_hw[i] = z2_mean_tmp_hw[i] / 16;
+		printf("b2_mean[%d]: %f, sum_z2_mean[%d]: %f\n\r", i, b2_mean[i], i, sum_z2_mean[i]);	
+		printf("z2_mean_hw[%d]: %f\n\r", i, z2_mean_tmp_hw[i]);
+	}
+
+
+	return;
+}
+
 void VAE_print_a2a3_sw(double a2_mean[], double a2_var[], double z[], double a3[])
 {
 	int i;
@@ -558,13 +633,13 @@ int main()
 	FIL fil;
 	FATFS fatfs;
 	char Filename[32];
-	char buffer[256];
+	char buffer[32768];
 
 	FRESULT Res;
 	UINT NumBytesRead;
 	u32 FileSize = 9*1024;
 	TCHAR *Path = "0:/";
-	unsigned char buff[9300];
+	unsigned char buff[4096];
 	int count = 0;
 	
 
@@ -576,76 +651,8 @@ int main()
 		return XST_FAILURE;
 	}
 
-	// w3.csvを読み込む
-	double w3_init[NUM_A3][NUM_A2];
-	strcpy(Filename, "w3.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A3){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A2 && token != NULL; j++){
-			w3_init[i][j] = atof(token);
-			token = strtok(NULL, ",");
-		}
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A3; i++){
-		for(j = 0; j < NUM_A2; j++){
-			printf("w3[%d][%d] = %7.4f\n\r", i, j, w3_init[i][j]);
-		}
-	}
-
-	printf("now is OK\n\r");	
-
-	// w2_mean.csvを読み込む
-	double w2_mean_init[NUM_A2][NUM_X];
-	strcpy(Filename, "w2_mean.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A2){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_mean_init[i][j] = atof(token);
-			token = strtok(NULL, ",");
-		}
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		for(j = 0; j < NUM_A3; j++){
-			printf("w2_mean[%d][%d] = %7.4f\n\r", i, j, w2_mean_init[i][j]);
-		}
-	}
-
-	printf("now is OK\n\r");	
-	
 	// w2_var.csvを読み込む
-	double w2_var_init[NUM_A2][NUM_X];
+	double w2_var[NUM_A2][NUM_X];
 	strcpy(Filename, "w2_var.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -662,8 +669,8 @@ int main()
 		}
 
 		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_var_init[i][j] = atof(token);
+		for(j = 0; j < NUM_IN && token != NULL; j++){
+			w2_var[i][j] = atof(token);
 			token = strtok(NULL, ",");
 		}
 		i++;
@@ -671,15 +678,84 @@ int main()
 	f_close(&fil);
 
 	for(i = 0; i < NUM_A2; i++){
-		for(j = 0; j < NUM_A3; j++){
-			printf("w2_var[%d][%d] = %7.4f\n\r", i, j, w2_var_init[i][j]);
+		for(j = 0; j < NUM_IN; j++){
+			printf("w2_var[%d][%d] = %7.4f\n\r", i, j, w2_var[i][j]);
 		}
 	}
 
 	printf("now is OK\n\r");
 
+	// w3.csvを読み込む
+	double w3[NUM_IN][NUM_A2];
+	strcpy(Filename, "w3.csv");
+	Res = f_open(&fil, Filename, FA_READ);
+	if(Res){
+		xil_printf("ERROR: f_open\n");
+		return XST_FAILURE;
+	}
+
+	i = 0;
+	while(i < NUM_IN){
+		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
+		if(line == NULL){
+			xil_printf("error\n\r");
+			break;
+		}
+
+		char *token = strtok(buffer, ",");
+		for(j = 0; j < NUM_A2 && token != NULL; j++){
+			w3[i][j] = atof(token);
+			token = strtok(NULL, ",");
+		}
+		i++;
+	}
+	f_close(&fil);
+
+	for(i = 0; i < NUM_IN; i++){
+		for(j = 0; j < NUM_A2; j++){
+			printf("w3[%d][%d] = %7.4f\n\r", i, j, w3[i][j]);
+		}
+	}
+
+	printf("now is OK\n\r");	
+
+	// w2_mean.csvを読み込む
+	double w2_mean[NUM_A2][NUM_X];
+	strcpy(Filename, "w2_mean.csv");
+	Res = f_open(&fil, Filename, FA_READ);
+	if(Res){
+		xil_printf("ERROR: f_open\n");
+		return XST_FAILURE;
+	}
+
+	i = 0;
+	while(i < NUM_A2){
+		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
+		if(line == NULL){
+			xil_printf("error\n\r");
+			break;
+		}
+
+		char *token = strtok(buffer, ",");
+		for(j = 0; j < NUM_IN && token != NULL; j++){
+			w2_mean[i][j] = atof(token);
+			token = strtok(NULL, ",");
+		}
+		i++;
+	}
+	f_close(&fil);
+
+	for(i = 0; i < NUM_A2; i++){
+		for(j = 0; j < NUM_IN; j++){
+			printf("w2_mean[%d][%d] = %7.4f\n\r", i, j, w2_mean[i][j]);
+		}
+	}
+
+	printf("now is OK\n\r");	
+	
+
 	// b2_meanを読み込む
-   	double b2_mean_init[NUM_A2];
+   	double b2_mean[NUM_A2];
    	strcpy(Filename, "b2_mean.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -696,20 +772,20 @@ int main()
 		}
 
 		char *token = strtok(buffer, ",");
-		b2_mean_init[i] = atof(token);
+		b2_mean[i] = atof(token);
 		token = strtok(NULL, ",");
 		i++;
 	}
 	f_close(&fil);
 
 	for(i = 0; i < NUM_A2; i++){
-		printf("b2_mean[%d] = %7.4f\n\r", i, b2_mean_init[i]);
+		printf("b2_mean[%d] = %7.4f\n\r", i, b2_mean[i]);
 	}
 
 	printf("now is OK\n\r");
 
 	//b2_varを読み込む
-   	double b2_var_init[NUM_A2];
+   	double b2_var[NUM_A2];
    	strcpy(Filename, "b2_var.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -726,20 +802,20 @@ int main()
 		}
 
 		char *token = strtok(buffer, ",");
-		b2_var_init[i] = atof(token);
+		b2_var[i] = atof(token);
 		token = strtok(NULL, ",");
 		i++;
 	}
 	f_close(&fil);
 
 	for(i = 0; i < NUM_A2; i++){
-		printf("b2_var[%d] = %7.4f\n\r", i, b2_var_init[i]);
+		printf("b2_var[%d] = %7.4f\n\r", i, b2_var[i]);
 	}
 
 	printf("now is OK\n\r");
 
 	// b3を読み込む
-    double b3_init[NUM_A3];
+    double b3[NUM_IN];
 	strcpy(Filename, "b3.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -748,7 +824,7 @@ int main()
 	}
 
 	i = 0;
-	while(i < NUM_A3){
+	while(i < NUM_IN){
 		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
 		if(line == NULL){
 			xil_printf("error\n\r");
@@ -756,47 +832,26 @@ int main()
 		}
 
 		char *token = strtok(buffer, ",");
-		b3_init[i] = atof(token);
+		b3[i] = atof(token);
 		token = strtok(NULL, ",");
 		i++;
 	}
 	f_close(&fil);
 
 	for(i = 0; i < NUM_A2; i++){
-		printf("b3[%d] = %7.4f\n\r", i, b3_init[i]);
+		printf("b3[%d] = %7.4f\n\r", i, b3[i]);
 	}
 
 	printf("now is OK\n\r");
 	
 
-   double eps_init[NUM_A2]=
-   {-0.601121103667131,-3.410037246733799};
+   	double eps_init[NUM_A2]=
+   	{-0.601121103667131,-3.410037246733799};
 
 
-   double k[9][BATCHSIZE]    = {{1.0, 1.0},
-                                {1.0, 0.0},
-							    {1.0, 1.0},
-							    {1.0, 0.0},
-							    {0.0, 1.0},
-							    {1.0, 0.0},
-							    {1.0, 1.0},
-							    {1.0, 0.0},
-							    {1.0, 1.0}};
+	double k[NUM_K][BATCHSIZE];
 
-   double t[9][BATCHSIZE]    = {{1.0, 1.0},
-								{1.0, 0.0},
-								{1.0, 1.0},
-								{1.0, 0.0},
-								{0.0, 1.0},
-								{1.0, 0.0},
-								{1.0, 1.0},
-								{1.0, 0.0},
-								{1.0, 1.0}};
 
-	double w2_mean[NUM_A2][NUM_X], w2_var[NUM_A2][NUM_X];
-	double w3[NUM_A3][NUM_A2];
-	double b2_mean[NUM_A2], b2_var[NUM_A2];
-	double b3[NUM_A3];
 	double eps[NUM_A2];
 	double z[NUM_A2];
 
@@ -853,15 +908,13 @@ int main()
 	
 	for(i = 0; i < 256; i++){
 		image_data_i[i] = (double)image_data[i] / 255.0;
-		printf("%5.3f ", image_data_i[i]);
-			if((i+1) % 16 == 0){
+		k[i][0] = image_data_i[i];
+		printf("%5.3f ", k[i][0]);
+		if((i+1) % 16 == 0){
 			printf("\n\r");
 		}
 	}
 
-
-
-	double eta = ETA;
 
 	XGpio_Initialize(&input, XPAR_AXI_GPIO_0_DEVICE_ID);		//initialize input XGpio variable
 	XGpio_Initialize(&output, XPAR_AXI_GPIO_1_DEVICE_ID);	//initialize output XGpio variable
@@ -873,25 +926,7 @@ int main()
 
 	init_platform();
 
-   // w2, b2, w3, b3の初期化
-   for(l=0; l<NUM_A2; l++){
-	   for(m = 0; m < NUM_X; m++){
-		   w2_mean[l][m] = w2_mean_init[l][m];
-		   w2_var[l][m] = w2_var_init[l][m];
-	   }
-   }
-   for(l=0; l<NUM_A3; l++){
-	   for(m = 0; m < NUM_A2; m++){
-		   w3[l][m] = w3_init[l][m];
-	   }
-   }
-   for(l=0; l<NUM_A2; l++){
-	   b2_mean[l] = b2_mean_init[l];
-	   b2_var[l] = b2_var_init[l];
-   }
-   for(l=0; l<NUM_A3; l++){
-	   b3[l] = b3_init[l];
-   }
+
    for(l=0; l<NUM_A2; l++){
 	   eps[l] = eps_init[l];
    }
@@ -1101,35 +1136,28 @@ int main()
 				VAE_generate_929_SW(w3, b3, z, z3_tmp, a3_tmp);
 
 			disp_menu();
-      }else if(button_data == 0b0100) {
-         xil_printf("button 2 pressed\n\r");
-         xil_printf("Initialization\n\r");
+      	}else if(button_data == 0b0100) {
+			// VAE929利用
+			xil_printf("button 2 pressed\n\r");
+			
+			for(i = 0; i < 256; i++){
+				X[i] = k[i][0];
+				// デバッグ用
+				/*printf("%5.3f ", X[i]);
+				if((i+1) % 16 == 0){
+					printf("\n");
+				}
+				*/
+			}
 
-         // w2, b2, w3, b3の初期化
-         for(l=0; l<NUM_A2; l++){
-      	   for(m = 0; m < NUM_X; m++){
-      		   w2_mean[l][m] = w2_mean_init[l][m];
-      		   w2_var[l][m] = w2_var_init[l][m];
-      	   }
-         }
-         for(l=0; l<NUM_A3; l++){
-      	   for(m = 0; m < NUM_A2; m++){
-      		   w3[l][m] = w3_init[l][m];
-      	   }
-         }
-         for(l=0; l<NUM_A2; l++){
-      	   b2_mean[l] = b2_mean_init[l];
-      	   b2_var[l] = b2_var_init[l];
-         }
-         for(l=0; l<NUM_A3; l++){
-      	   b3[l] = b3_init[l];
-         }
-         for(l=0; l<NUM_A2; l++){
-      	   eps[l] = eps_init[l];
-         }
+			VAE_forward_2562256_HW(w2_mean, b2_mean, w2_var, b2_var,
+						w3, b3, X,
+						z2_mean_tmp, a2_mean_tmp, z2_var_tmp, a2_var_tmp,
+						z, z3_tmp, a3_tmp, eps);
 
-         disp_menu();
-      }else if(button_data == 0b1000){
+
+         	disp_menu();
+      	}else if(button_data == 0b1000){
           printf("button 3 pressed\n\r");
           printf("HW test.\n\r");
 

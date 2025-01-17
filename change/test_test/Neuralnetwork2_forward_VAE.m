@@ -29,10 +29,18 @@
 %
 function [z2_mean,z2_var, a2_mean, a2_var,z,z3,a3] = Neuralnetwork2_forward_VAE(X,w12_mean,w12_var,w23,b2_mean,b2_var,b3)
 
-z2_mean = w12_mean * X + b2_mean;                      % 中間層（隠れ層）の重み付き入力        input weight for hidden layer
-z2_var = w12_var * X + b2_var;                      % 中間層（隠れ層）の重み付き入力
+z2_mean_test = w12_mean * X + b2_mean;                      % 中間層（隠れ層）の重み付き入力        input weight for hidden layer
+disp(z2_mean_test);
+z2_mean_ago1 = w12_mean * X;
+disp(z2_mean_ago1);
+z2_mean_ago2 = z2_mean_ago1 + b2_mean;
+disp(z2_mean_ago2);
+z2_var = w12_var * X +b2_var;                      % 中間層（隠れ層）の重み付き入力
 
+z2_mean = z2_mean_ago2;
+disp(z2_mean);
 z2_mean = z2_mean/16;
+disp(z2_mean);
 z2_var = z2_var/16;
 % input weight for hidden layer
 % if(L2func == 'Sigmoid')                 % 中間層（隠れ層）の出力a2

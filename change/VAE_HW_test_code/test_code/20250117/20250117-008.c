@@ -5,13 +5,10 @@
 /* Press button 2. Initialization : VAE          */
 /* Press button 3. HW Test                       */
 
-/*20250117-004の変更内容
-20250117-003>>
-SDカードの画像データ（.raw）ファイルを読み込む
-*/
-/*20250117-005の変更内容
-SDカードから読み込んだデータを編集できるかのチェック
-いらない部分の削除
+/*20250115-004の変更内容
+FPGAでは学習を行わせない
+MATLABで学習させた変数のみを利用する
+直書き変更（SWのみ）
 */
 
 #include <stdio.h>
@@ -27,7 +24,6 @@ SDカードから読み込んだデータを編集できるかのチェック
 #include "ff.h"
 
 #include <stdlib.h>
-#include <string.h>
 #include <math.h>
 
 #define EPOCH (10000)
@@ -320,78 +316,35 @@ void VAE_forward_929_HW(
 	double a2_mean_tmp_hw[NUM_A2], a2_var_tmp_hw[NUM_A2], a3_tmp_hw[NUM_A3];
 
     // Meanの計算
-    z[0]=0.0;
-	z[1]=0.0;
-	
-	// テストで挿入
-	// b2を0に設定することで、出力のz2_mean_tmp_hwがxとwをかけ合わせた積になるのではないか
-	double b2_test[NUM_A2];
-
-	b2_test[0] = 0.0; b2_test[1] = 0.0;
-	for(i = 0; i < NUM_A2; i++){
-		w2_mean[i][8] = 0;
-	}
-
-	AE_forward_929_HW(w2_mean, b2_test, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
-
-	printf("\n\r");
-	printf("z2_mean: %f\n\r", z2_mean_tmp_hw[0]);
-	printf("a2_mean: %f\n\r", a2_mean_tmp_hw[0]);
-	printf("\n\r");
-	double sum = 0.0;
-	for(i = 0; i < NUM_A3-1; i++){
-		sum = sum + w2_mean[0][i] * X[i];
-	}
-	printf("z2_mean SW: %f\n\r", sum);
-
-
-
+    z[0]=0.0;z[1]=0.0;
     AE_forward_929_HW(w2_mean, b2_mean, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     //printf("VAE HW\n\r");
     for(i = 0; i < NUM_A2; i++){
-		z2_mean_hw[i] = z2_mean_tmp_hw[i];
-		a2_mean_hw[i] = z2_mean_tmp_hw[i];
-		//printf(" %8f, \n\r", z2_mean_hw[i]);
+  	  z2_mean_hw[i] = z2_mean_tmp_hw[i];
+  	  a2_mean_hw[i] = z2_mean_tmp_hw[i];
+  	  // printf(" %8f, \n\r", z2_mean_hw[i]);
     }
 
     // Varianceの計算
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     for(i = 0; i < NUM_A2; i++){
-  		z2_var_hw[i] = z2_var_tmp_hw[i];
+  	  z2_var_hw[i] = z2_var_tmp_hw[i];
     }
     // a2_var の計算． Softplus
     for(i = 0; i < NUM_A2; i++){
-  		a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
+  	  a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
     }
     // zの計算 (SW)
     for(i = 0; i < NUM_A2; i++){
-  		z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
+  	  z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
     }
-
     // 画像の生成
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     for(i = 0; i < NUM_A3; i++){
-		z3_hw[i] = z3_tmp_hw[i];
-		a3_hw[i] = a3_tmp_hw[i];
-    }
-
-	// 画像の生成 テスト用
-	double z3_hw_test[NUM_A3], a3_hw_test[NUM_A3];
-	w3[8][0] = 0.0; w3[8][1] = 0.0;
-	b3[8] = 0.0;
-	for(i = 0; i < NUM_A3; i++){
-		printf("w3[][0]: %f\n\r", w3[i][0]);
-	}
-    AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
-    for(i = 0; i < NUM_A3; i++){
-		z3_hw_test[i] = z3_tmp_hw[i];
-		a3_hw_test[i] = a3_tmp_hw[i];
-    }
-
-    for(i = 0; i < NUM_A3; i++){
-		printf("z3: %7.4f, a3: %7.4f\n\r", z3_hw_test[i], a3_hw_test[i]);
+  	  z3_hw[i] = z3_tmp_hw[i];
+  	  a3_hw[i] = a3_tmp_hw[i];
     }
 
     return;
@@ -548,239 +501,45 @@ void print_a2_a3(double a2_mean_hw[], double a2_var_hw[], double a3_hw[], double
 
 int main()
 {
-	XGpio input, output;
-	int button_data = 0;
-	int switch_data = 0;
+   XGpio input, output;
+   int button_data = 0;
+   int switch_data = 0;
 
-	int i, j, l, m, loop;
+   int i, j, l, m, loop;
 
-	//SDカード読み取り用変数用意
-	FIL fil;
-	FATFS fatfs;
-	char Filename[32];
-	char buffer[256];
+   //変更させる予定
+   //初めのweightはMATLABの出力結果を使用予定
+   double w2_mean_init[NUM_A2][NUM_X]  =
+   {{1.063, 2.226, 1.026, 2.204, 0.034, 3.192, 3.391, -0.146, 1.0},
+	{-0.0078, 0.0012, -0.0063, 0.0017, -0.0083, 0.00047, 0.5381, -0.5612, 0.6816}};
+   double w2_var_init[NUM_A2][NUM_X]  =
+   {{-0.8178, -0.0893, -0.6769, 0.1298, -0.3421, -0.5389, -1.0345, -0.2477, -1.2913},
+	{-1.0118, 0.0936, -1.1137, 0.0569, -0.1882, -0.7672, -0.5465, 0.00071, -1.2532}};
 
-	FRESULT Res;
-	UINT NumBytesRead;
-	u32 FileSize = 9*1024;
-	TCHAR *Path = "0:/";
-	unsigned char buff[9300];
-	int count = 0;
-	
-
-	// SDカードの読み取り開始
-	xil_printf("SD Card : Read test.\n\r");
-	Res = f_mount(&fatfs, Path, 0);
-	if(Res != FR_OK){
-		xil_printf("ERROR: f_mount\n");
-		return XST_FAILURE;
-	}
-
-	// w3.csvを読み込む
-	double w3_init[NUM_A3][NUM_A2];
-	strcpy(Filename, "w3.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A3){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A2 && token != NULL; j++){
-			w3_init[i][j] = atof(token);
-			token = strtok(NULL, ",");
-		}
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A3; i++){
-		for(j = 0; j < NUM_A2; j++){
-			printf("w3[%d][%d] = %7.4f\n\r", i, j, w3_init[i][j]);
-		}
-	}
-
-	printf("now is OK\n\r");	
-
-	// w2_mean.csvを読み込む
-	double w2_mean_init[NUM_A2][NUM_X];
-	strcpy(Filename, "w2_mean.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A2){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_mean_init[i][j] = atof(token);
-			token = strtok(NULL, ",");
-		}
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		for(j = 0; j < NUM_A3; j++){
-			printf("w2_mean[%d][%d] = %7.4f\n\r", i, j, w2_mean_init[i][j]);
-		}
-	}
-
-	printf("now is OK\n\r");	
-	
-	// w2_var.csvを読み込む
-	double w2_var_init[NUM_A2][NUM_X];
-	strcpy(Filename, "w2_var.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A2){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_var_init[i][j] = atof(token);
-			token = strtok(NULL, ",");
-		}
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		for(j = 0; j < NUM_A3; j++){
-			printf("w2_var[%d][%d] = %7.4f\n\r", i, j, w2_var_init[i][j]);
-		}
-	}
-
-	printf("now is OK\n\r");
-
-	// b2_meanを読み込む
-   	double b2_mean_init[NUM_A2];
-   	strcpy(Filename, "b2_mean.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A2){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		b2_mean_init[i] = atof(token);
-		token = strtok(NULL, ",");
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		printf("b2_mean[%d] = %7.4f\n\r", i, b2_mean_init[i]);
-	}
-
-	printf("now is OK\n\r");
-
-	//b2_varを読み込む
-   	double b2_var_init[NUM_A2];
-   	strcpy(Filename, "b2_var.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A2){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		b2_var_init[i] = atof(token);
-		token = strtok(NULL, ",");
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		printf("b2_var[%d] = %7.4f\n\r", i, b2_var_init[i]);
-	}
-
-	printf("now is OK\n\r");
-
-	// b3を読み込む
-    double b3_init[NUM_A3];
-	strcpy(Filename, "b3.csv");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	i = 0;
-	while(i < NUM_A3){
-		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
-		if(line == NULL){
-			xil_printf("error\n\r");
-			break;
-		}
-
-		char *token = strtok(buffer, ",");
-		b3_init[i] = atof(token);
-		token = strtok(NULL, ",");
-		i++;
-	}
-	f_close(&fil);
-
-	for(i = 0; i < NUM_A2; i++){
-		printf("b3[%d] = %7.4f\n\r", i, b3_init[i]);
-	}
-
-	printf("now is OK\n\r");
-	
-
+   double w3_init[NUM_A3][NUM_A2] =
+                 	{{1.2488, 2.6317},
+					{4.4647, -1.3165},
+					{1.2322, 2.4744},
+					{4.4139, -1.4120},
+					{-4.0184, 2.2693},
+					{4.5003, -1.2044},
+					{1.3060, 2.7210},
+					{4.4511, -1.3656},
+					{1.1667, 2.3886}};
    double eps_init[NUM_A2]=
    {-0.601121103667131,-3.410037246733799};
 
-
-   double k[9][BATCHSIZE]    = {{1.0, 1.0},
-                                {1.0, 0.0},
-							    {1.0, 1.0},
-							    {1.0, 0.0},
-							    {0.0, 1.0},
-							    {1.0, 0.0},
-							    {1.0, 1.0},
-							    {1.0, 0.0},
+   double b2_mean_init[NUM_A2]         = {0.0, -0.7314};
+   double b2_var_init[NUM_A2]          = {-1.8587, -2.0374};
+   double b3_init[NUM_A3]         = {3.2619, -0.4094, 3.3225, -0.3711, 0.0538, -0.4448, 3.2270, -0.3946, 3.3549};
+   double k[9][BATCHSIZE]    = {{0.278, 1.0},
+                                {0.247, 0.0},
+							    {0.235, 1.0},
+							    {0.255, 0.0},
+							    {0.267, 1.0},
+							    {0.251, 0.0},
+							    {0.239, 1.0},
+							    {0.239, 0.0},
 							    {1.0, 1.0}};
 
    double t[9][BATCHSIZE]    = {{1.0, 1.0},
@@ -821,44 +580,6 @@ int main()
 	double dCdb2_mean[NUM_A2], dCdw2_mean[NUM_A2][NUM_X];
 	double dCdb2_var[NUM_A2], dCdw2_var[NUM_A2][NUM_X];
 	double mult_tmp;
-
-	// 画像データ読み込み int型 16*16=256個
-	unsigned char image_data[256];
-   	strcpy(Filename, "test401.raw");
-	Res = f_open(&fil, Filename, FA_READ);
-	if(Res){
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-
-	Res = f_read(&fil,image_data, FileSize, &NumBytesRead);
-	if (Res) {
-		xil_printf("ERROR: f_open\n");
-		return XST_FAILURE;
-	}
-	
-	f_close(&fil);
-	    	   
-
-	for(i = 0; i < 256; i++){
-		printf("%d ", image_data[i]);
-		if((i+1) % 16 == 0){
-			printf("\n\r");
-		}
-	}
-
-	printf("\n\r");
-
-	double image_data_i[256];
-	
-	for(i = 0; i < 256; i++){
-		image_data_i[i] = (double)image_data[i] / 255.0;
-		printf("%5.3f ", image_data_i[i]);
-			if((i+1) % 16 == 0){
-			printf("\n\r");
-		}
-	}
-
 
 
 	double eta = ETA;
@@ -1068,8 +789,126 @@ int main()
 			printf("button 1 pressed\n\r");
 			printf("Variational Auto Encoder (SW+HW).\n\r");
 
+			printf("Initial Weight \n\r");
+			print_wb(w2_mean, b2_mean, w2_var, b2_var, w3, b3);
 
-			printf("Now Weight \n\r");
+			/*
+			for(loop = 0; loop < EPOCH; loop++){
+				// Evaluation
+				if(loop % 1000 == 0)
+					printf("Epoch = %d\n", loop);
+
+				for(j = 0; j < BATCHSIZE; j++){
+					for(i = 0; i < NUM_X; i++)          // 入力
+					X[i] = k[i][j];
+
+					for(l=0; l<NUM_A2; l++){
+					eps[l] = Uniform();
+					}
+					VAE_forward_929_HW(w2_mean, b2_mean, w2_var, b2_var,
+							w3, b3, X,
+							z2_mean_tmp, a2_mean_tmp, z2_var_tmp, a2_var_tmp,
+							z, z3_tmp, a3_tmp, eps);
+					//VAE_print_a2a3(a2_mean_tmp, a2_var_tmp, a3_tmp);
+
+					for(i = 0; i < NUM_A2; i++){			// a2を格納
+					a2_mean[i][j] = a2_mean_tmp[i];
+					a2_var[i][j] = a2_var_tmp[i];
+					z_sw[i][j] = z[i];
+					}
+		//               printf("a2 : 0x%8x, 0x%8x\n\r", *(int *)&a2[0][j], *(int *)&a2[1][j]);
+					for(i = 0; i < NUM_A3; i++){
+					a3[i][j] = a3_tmp[i];										// a3を格納
+
+					dCda3[i][j] = -X[i]/a3[i][j]+(1.0-X[i])/(1.0-a3[i][j]);	// dC/da3　の計算
+					dCdz3[i][j] = dCda3[i][j] * a3[i][j] * (1.0-a3[i][j]);	// dC/dz3 の計算
+					delta3[i][j] = dCdz3[i][j];								// δ3　の計算
+					}
+				}
+
+				for(i = 0; i < NUM_A3; i++){          	// バイアスb3の勾配 (3)式
+				dCdb3[i] = 0.0;
+				for(j = 0; j < BATCHSIZE; j++){
+					dCdb3[i] += delta3[i][j];
+				}
+				}
+		//            printf("dCdb3 : 0x%8x, 0x%8x\n\r", *(int *)&dCdb3[0], *(int *)&dCdb3[1]);
+
+				for(i = 0; i < NUM_A2; i++){          	// 重みw3の勾配 (2)式
+				for(j = 0; j < NUM_A3; j++){
+					dCdw3[j][i] = 0.0;
+					for(l = 0; l < BATCHSIZE; l++){
+						dCdw3[j][i] += (z_sw[i][l] * delta3[j][l]);
+					}
+				}
+				}
+				// dC/da2_mean, dC/da2_var
+				for(i = 0; i < NUM_A2; i++){    		// 重みw3の勾配 (2)式
+				for(l = 0; l < BATCHSIZE; l++){
+					dCda2_mean[i][l] = 0.0;
+					dCda2_var[i][l] = 0.0;
+					for(j = 0; j < NUM_A3; j++){
+						dCda2_mean[i][l] += (w3[j][i] * delta3[j][l]);
+						dCda2_var[i][l] += (w3[j][i] * delta3[j][l]);
+					}
+					dCda2_mean[i][l] += a2_mean[i][l];
+					dCda2_var[i][l] += (a2_var[i][l]-1/a2_var[i][l]);
+				}
+				}
+
+				for(i = 0; i < NUM_A2; i++){          	// 隠れ層の誤差 meanは線形
+				for(l = 0; l < BATCHSIZE; l++){
+					dCdz2_mean[i][l] = dCda2_mean[i][l];
+					delta2_mean[i][l] = dCdz2_mean[i][l];
+
+					dCdz2_var[i][l] = 1./(1+exp(-dCda2_var[i][l]));
+					delta2_var[i][l] = dCdz2_var[i][l];
+				}
+				}
+
+				for(i = 0; i < NUM_A2; i++){          	// バイアスb2の勾配 (6)式
+				dCdb2_mean[i] = 0.0;
+				dCdb2_var[i] = 0.0;
+				for(l = 0; l < BATCHSIZE; l++){
+					dCdb2_mean[i] += delta2_mean[i][l];
+					dCdb2_var[i] += delta2_var[i][l];
+				}
+				}
+
+				for(i = 0; i < NUM_X; i++){          	// 重みw2の勾配 (5)式
+				for(j = 0; j < NUM_A2; j++){
+					dCdw2_mean[j][i] = 0.0;
+					dCdw2_var[j][i] = 0.0;
+					for(l = 0; l < BATCHSIZE; l++){
+						dCdw2_mean[j][i] += (k[i][l] * delta2_mean[j][l]);
+						dCdw2_var[j][i] += (k[i][l] * delta2_var[j][l]);
+					}
+				}
+				}
+				// パラメータの更新
+				for(i = 0; i < NUM_A3; i++){
+				b3[i] = b3[i] - eta*dCdb3[i];				// b3 の更新
+
+				for(j = 0; j < NUM_A2; j++){
+					w3[i][j] = w3[i][j] - eta * dCdw3[i][j];	// w3 の更新
+				}
+				}
+
+				for(i = 0; i < NUM_A2; i++){
+				b2_mean[i] = b2_mean[i] - eta*dCdb2_mean[i];				// b2 の更新
+				b2_var[i] = b2_var[i] - eta*dCdb2_var[i];				// b2 の更新
+
+				for(j = 0; j < NUM_X; j++){
+					w2_mean[i][j] = w2_mean[i][j] - eta * dCdw2_mean[i][j];	// w2 の更新
+					w2_var[i][j] = w2_var[i][j] - eta * dCdw2_var[i][j];	// w2 の更新
+				}
+				}
+			}
+			*/
+            printf("Final Weight \n\r");
+			print_wb(w2_mean, b2_mean, w2_var, b2_var, w3, b3);
+
+			printf("Final Weight \n\r");
 			print_wb(w2_mean, b2_mean, w2_var, b2_var, w3, b3);
 
 			for(j = 0; j < BATCHSIZE; j++){

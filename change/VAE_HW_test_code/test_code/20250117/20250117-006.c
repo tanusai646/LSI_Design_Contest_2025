@@ -5,13 +5,11 @@
 /* Press button 2. Initialization : VAE          */
 /* Press button 3. HW Test                       */
 
-/*20250117-004の変更内容
-20250117-003>>
-SDカードの画像データ（.raw）ファイルを読み込む
-*/
-/*20250117-005の変更内容
-SDカードから読み込んだデータを編集できるかのチェック
-いらない部分の削除
+/*20250117-006の変更内容
+20250117-005>>
+実際に画像データを読み込ませてみる
+VAEの学習結果はMATLABのシミュレーションを利用
+HWは9×2×9
 */
 
 #include <stdio.h>
@@ -35,8 +33,8 @@ SDカードから読み込んだデータを編集できるかのチェック
 #define ETA (0.001)
 #define BATCHSIZE (2)
 
-#define NUM_K  (9)
-#define NUM_X  (9)
+#define NUM_K  (256)
+#define NUM_X  (256)
 #define NUM_A2 (2)
 #define NUM_A3 (9)
 
@@ -577,7 +575,7 @@ int main()
 	}
 
 	// w3.csvを読み込む
-	double w3_init[NUM_A3][NUM_A2];
+	double w3[NUM_A3][NUM_A2];
 	strcpy(Filename, "w3.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -595,7 +593,7 @@ int main()
 
 		char *token = strtok(buffer, ",");
 		for(j = 0; j < NUM_A2 && token != NULL; j++){
-			w3_init[i][j] = atof(token);
+			w3[i][j] = atof(token);
 			token = strtok(NULL, ",");
 		}
 		i++;
@@ -604,14 +602,14 @@ int main()
 
 	for(i = 0; i < NUM_A3; i++){
 		for(j = 0; j < NUM_A2; j++){
-			printf("w3[%d][%d] = %7.4f\n\r", i, j, w3_init[i][j]);
+			printf("w3[%d][%d] = %7.4f\n\r", i, j, w3[i][j]);
 		}
 	}
 
 	printf("now is OK\n\r");	
 
 	// w2_mean.csvを読み込む
-	double w2_mean_init[NUM_A2][NUM_X];
+	double w2_mean[NUM_A2][NUM_X];
 	strcpy(Filename, "w2_mean.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -629,7 +627,7 @@ int main()
 
 		char *token = strtok(buffer, ",");
 		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_mean_init[i][j] = atof(token);
+			w2_mean[i][j] = atof(token);
 			token = strtok(NULL, ",");
 		}
 		i++;
@@ -638,14 +636,14 @@ int main()
 
 	for(i = 0; i < NUM_A2; i++){
 		for(j = 0; j < NUM_A3; j++){
-			printf("w2_mean[%d][%d] = %7.4f\n\r", i, j, w2_mean_init[i][j]);
+			printf("w2_mean[%d][%d] = %7.4f\n\r", i, j, w2_mean[i][j]);
 		}
 	}
 
 	printf("now is OK\n\r");	
 	
 	// w2_var.csvを読み込む
-	double w2_var_init[NUM_A2][NUM_X];
+	double w2_var[NUM_A2][NUM_X];
 	strcpy(Filename, "w2_var.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -663,7 +661,7 @@ int main()
 
 		char *token = strtok(buffer, ",");
 		for(j = 0; j < NUM_A3 && token != NULL; j++){
-			w2_var_init[i][j] = atof(token);
+			w2_var[i][j] = atof(token);
 			token = strtok(NULL, ",");
 		}
 		i++;
@@ -672,14 +670,14 @@ int main()
 
 	for(i = 0; i < NUM_A2; i++){
 		for(j = 0; j < NUM_A3; j++){
-			printf("w2_var[%d][%d] = %7.4f\n\r", i, j, w2_var_init[i][j]);
+			printf("w2_var[%d][%d] = %7.4f\n\r", i, j, w2_var[i][j]);
 		}
 	}
 
 	printf("now is OK\n\r");
 
 	// b2_meanを読み込む
-   	double b2_mean_init[NUM_A2];
+   	double b2_mean[NUM_A2];
    	strcpy(Filename, "b2_mean.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -696,20 +694,20 @@ int main()
 		}
 
 		char *token = strtok(buffer, ",");
-		b2_mean_init[i] = atof(token);
+		b2_mean[i] = atof(token);
 		token = strtok(NULL, ",");
 		i++;
 	}
 	f_close(&fil);
 
 	for(i = 0; i < NUM_A2; i++){
-		printf("b2_mean[%d] = %7.4f\n\r", i, b2_mean_init[i]);
+		printf("b2_mean[%d] = %7.4f\n\r", i, b2_mean[i]);
 	}
 
 	printf("now is OK\n\r");
 
 	//b2_varを読み込む
-   	double b2_var_init[NUM_A2];
+   	double b2_var[NUM_A2];
    	strcpy(Filename, "b2_var.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
