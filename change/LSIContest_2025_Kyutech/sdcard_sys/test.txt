@@ -1,3 +1,0 @@
-Advanced HW/SW Codesign.
-
-SD card test.

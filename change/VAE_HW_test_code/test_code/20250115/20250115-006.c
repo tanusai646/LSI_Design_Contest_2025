@@ -316,7 +316,9 @@ void VAE_forward_929_HW(
 	double a2_mean_tmp_hw[NUM_A2], a2_var_tmp_hw[NUM_A2], a3_tmp_hw[NUM_A3];
 
     // Meanの計算
-    z[0]=0.0;z[1]=0.0;
+    z[0]=0.0;
+	z[1]=0.0;
+
     AE_forward_929_HW(w2_mean, b2_mean, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     //printf("VAE HW\n\r");
@@ -558,6 +560,8 @@ int main()
 					{1.1667, 2.3886}};
 	xil_printf("SR card read test.\n\r");
 	i = 0;
+
+	// w3をcsvファイルから読み取り
 	while(i < NUM_A3){
 		TCHAR* line = f_gets(buffer, sizeof(buffer), &fil);
 		if(line == NULL){
