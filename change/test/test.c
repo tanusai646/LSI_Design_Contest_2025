@@ -29,7 +29,19 @@ int main() {
 
     // 読み込んだデータを確認する（例として画素値を出力）
     for (int i = 0; i < HEIGHT*WIDTH; i++) {
-        printf("%3d\n", image_data[i]); // 各画素値を出力
+        printf("%3d ", image_data[i]); // 各画素値を出力
+        if((i+1) % 16 == 0){
+            printf("\n");
+        }
+    }
+
+    double image_data_i[256];
+    for(int i = 0; i < 256; i++){
+        image_data_i[i] = (double)image_data[i] / 255.0;
+        printf("%5.3f ", image_data_i[i]);
+        if((i+1) % 16 == 0){
+            printf("\n");
+        }
     }
 
     return 0;
