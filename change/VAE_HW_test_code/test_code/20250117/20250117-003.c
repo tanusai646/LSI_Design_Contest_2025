@@ -13,6 +13,10 @@
 20250115-006>>
 すべての変数をcsvから取得するよう変更
 */
+/*20250117-003の変更内容
+20250115-006>>
+9×2×9を無理やり8×2×9に変更
+*/
 
 #include <stdio.h>
 #include "platform.h"
@@ -328,6 +332,9 @@ void VAE_forward_929_HW(
 	double b2_test[NUM_A2];
 
 	b2_test[0] = 0.0; b2_test[1] = 0.0;
+	for(i = 0; i < NUM_A2; i++){
+		w2_mean[i][8] = 0;
+	}
 
 	AE_forward_929_HW(w2_mean, b2_test, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
 
@@ -336,39 +343,59 @@ void VAE_forward_929_HW(
 	printf("a2_mean: %f\n\r", a2_mean_tmp_hw[0]);
 	printf("\n\r");
 	double sum = 0.0;
-	for(i = 0; i < NUM_A3; i++){
+	for(i = 0; i < NUM_A3-1; i++){
 		sum = sum + w2_mean[0][i] * X[i];
 	}
 	printf("z2_mean SW: %f\n\r", sum);
+
+
 
     AE_forward_929_HW(w2_mean, b2_mean, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     //printf("VAE HW\n\r");
     for(i = 0; i < NUM_A2; i++){
-  	  z2_mean_hw[i] = z2_mean_tmp_hw[i];
-  	  a2_mean_hw[i] = z2_mean_tmp_hw[i];
-  	  printf(" %8f, \n\r", z2_mean_hw[i]);
+		z2_mean_hw[i] = z2_mean_tmp_hw[i];
+		a2_mean_hw[i] = z2_mean_tmp_hw[i];
+		//printf(" %8f, \n\r", z2_mean_hw[i]);
     }
 
     // Varianceの計算
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     for(i = 0; i < NUM_A2; i++){
-  	  z2_var_hw[i] = z2_var_tmp_hw[i];
+  		z2_var_hw[i] = z2_var_tmp_hw[i];
     }
     // a2_var の計算． Softplus
     for(i = 0; i < NUM_A2; i++){
-  	  a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
+  		a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
     }
     // zの計算 (SW)
     for(i = 0; i < NUM_A2; i++){
-  	  z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
+  		z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
     }
+
     // 画像の生成
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     for(i = 0; i < NUM_A3; i++){
-  	  z3_hw[i] = z3_tmp_hw[i];
-  	  a3_hw[i] = a3_tmp_hw[i];
+		z3_hw[i] = z3_tmp_hw[i];
+		a3_hw[i] = a3_tmp_hw[i];
+    }
+
+	// 画像の生成 テスト用
+	double z3_hw_test[NUM_A3], a3_hw_test[NUM_A3];
+	w3[8][0] = 0.0; w3[8][1] = 0.0;
+	b3[8] = 0.0;
+	for(i = 0; i < NUM_A3; i++){
+		printf("w3[][0]: %f\n\r", w3[i][0]);
+	}
+    AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
+    for(i = 0; i < NUM_A3; i++){
+		z3_hw_test[i] = z3_tmp_hw[i];
+		a3_hw_test[i] = a3_tmp_hw[i];
+    }
+
+    for(i = 0; i < NUM_A3; i++){
+		printf("z3: %7.4f, a3: %7.4f\n\r", z3_hw_test[i], a3_hw_test[i]);
     }
 
     return;

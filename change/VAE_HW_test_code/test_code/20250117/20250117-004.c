@@ -5,13 +5,9 @@
 /* Press button 2. Initialization : VAE          */
 /* Press button 3. HW Test                       */
 
-/*20250117-001の変更内容
-20250115-006>>
-実際にHWに挿入するデータを変更することで出力がどのようになるかを検証
-*/
-/*20250117-002の変更内容
-20250115-006>>
-すべての変数をcsvから取得するよう変更
+/*20250117-004の変更内容
+20250117-003>>
+SDカードの画像データ（.raw）ファイルを読み込む
 */
 
 #include <stdio.h>
@@ -328,6 +324,9 @@ void VAE_forward_929_HW(
 	double b2_test[NUM_A2];
 
 	b2_test[0] = 0.0; b2_test[1] = 0.0;
+	for(i = 0; i < NUM_A2; i++){
+		w2_mean[i][8] = 0;
+	}
 
 	AE_forward_929_HW(w2_mean, b2_test, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
 
@@ -336,39 +335,59 @@ void VAE_forward_929_HW(
 	printf("a2_mean: %f\n\r", a2_mean_tmp_hw[0]);
 	printf("\n\r");
 	double sum = 0.0;
-	for(i = 0; i < NUM_A3; i++){
+	for(i = 0; i < NUM_A3-1; i++){
 		sum = sum + w2_mean[0][i] * X[i];
 	}
 	printf("z2_mean SW: %f\n\r", sum);
+
+
 
     AE_forward_929_HW(w2_mean, b2_mean, w3, b3, X, z, z2_mean_tmp_hw, a2_mean_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     //printf("VAE HW\n\r");
     for(i = 0; i < NUM_A2; i++){
-  	  z2_mean_hw[i] = z2_mean_tmp_hw[i];
-  	  a2_mean_hw[i] = z2_mean_tmp_hw[i];
-  	  printf(" %8f, \n\r", z2_mean_hw[i]);
+		z2_mean_hw[i] = z2_mean_tmp_hw[i];
+		a2_mean_hw[i] = z2_mean_tmp_hw[i];
+		//printf(" %8f, \n\r", z2_mean_hw[i]);
     }
 
     // Varianceの計算
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     // a2_mean の計算． Linear
     for(i = 0; i < NUM_A2; i++){
-  	  z2_var_hw[i] = z2_var_tmp_hw[i];
+  		z2_var_hw[i] = z2_var_tmp_hw[i];
     }
     // a2_var の計算． Softplus
     for(i = 0; i < NUM_A2; i++){
-  	  a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
+  		a2_var_hw[i] = log(1+exp(z2_var_hw[i]));
     }
     // zの計算 (SW)
     for(i = 0; i < NUM_A2; i++){
-  	  z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
+  		z[i] = a2_mean_hw[i] + sqrt(a2_var_hw[i])*eps[i];
     }
+
     // 画像の生成
     AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
     for(i = 0; i < NUM_A3; i++){
-  	  z3_hw[i] = z3_tmp_hw[i];
-  	  a3_hw[i] = a3_tmp_hw[i];
+		z3_hw[i] = z3_tmp_hw[i];
+		a3_hw[i] = a3_tmp_hw[i];
+    }
+
+	// 画像の生成 テスト用
+	double z3_hw_test[NUM_A3], a3_hw_test[NUM_A3];
+	w3[8][0] = 0.0; w3[8][1] = 0.0;
+	b3[8] = 0.0;
+	for(i = 0; i < NUM_A3; i++){
+		printf("w3[][0]: %f\n\r", w3[i][0]);
+	}
+    AE_forward_929_HW(w2_var, b2_var, w3, b3, X, z, z2_var_tmp_hw, a2_var_tmp_hw, z3_tmp_hw, a3_tmp_hw);
+    for(i = 0; i < NUM_A3; i++){
+		z3_hw_test[i] = z3_tmp_hw[i];
+		a3_hw_test[i] = a3_tmp_hw[i];
+    }
+
+    for(i = 0; i < NUM_A3; i++){
+		printf("z3: %7.4f, a3: %7.4f\n\r", z3_hw_test[i], a3_hw_test[i]);
     }
 
     return;
@@ -692,7 +711,7 @@ int main()
 	printf("now is OK\n\r");
 
 	//b2_varを読み込む
-   	double b2_var_init[NUM_A2]          = {-1.8587, -2.0374};
+   	double b2_var_init[NUM_A2];
    	strcpy(Filename, "b2_var.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
@@ -722,8 +741,8 @@ int main()
 	printf("now is OK\n\r");
 
 	// b3を読み込む
-    double b3_init[NUM_A3]         = {3.2619, -0.4094, 3.3225, -0.3711, 0.0538, -0.4448, 3.2270, -0.3946, 3.3549};
-   	strcpy(Filename, "b3.csv");
+    double b3_init[NUM_A3];
+	strcpy(Filename, "b3.csv");
 	Res = f_open(&fil, Filename, FA_READ);
 	if(Res){
 		xil_printf("ERROR: f_open\n");
@@ -804,6 +823,31 @@ int main()
 	double dCdb2_mean[NUM_A2], dCdw2_mean[NUM_A2][NUM_X];
 	double dCdb2_var[NUM_A2], dCdw2_var[NUM_A2][NUM_X];
 	double mult_tmp;
+
+	// 画像データ読み込み int型 16*16=256個
+	unsigned char image_data[256];
+   	strcpy(Filename, "test401.raw");
+	Res = f_open(&fil, Filename, FA_READ);
+	if(Res){
+		xil_printf("ERROR: f_open\n");
+		return XST_FAILURE;
+	}
+
+	Res = f_read(&fil,image_data, FileSize, &NumBytesRead);
+	if (Res) {
+		xil_printf("ERROR: f_open\n");
+		return XST_FAILURE;
+	}
+	
+	f_close(&fil);
+	    	   
+
+	for(i = 0; i < 256; i++){
+		printf("%c ", image_data[i]);
+		if((i+1) % 16 == 0){
+			printf("\n\r");
+		}
+	}
 
 
 	double eta = ETA;

@@ -167,6 +167,11 @@ figure(3);
 plot(E);
 xlabel('Epoch'); ylabel('Error');
 
+writematrix(w2_mean, 'w2_mean.csv');
+writematrix(w2_var, 'w2_var.csv');
+writematrix(b2_mean, 'b2_mean.csv');
+writematrix(b2_var, 'b2_var.csv');
 writematrix(w3, 'w3.csv');
+writematrix(b3, 'b3.csv');
 
 
