@@ -55,10 +55,13 @@ a2_mean = z2_mean;
 % Sofplus関数の微分は，Sigmoid関数
 a2_var = log(1+exp(z2_var));
 
+%eps = [-0.601121103667131; -3.410037246733799];
 eps = randn(size(z2_mean));
 z = a2_mean + sqrt(a2_var).*eps;
 
 z3 = w23 * z + b3;                     % 復元層（出力層）の重み付き入力        input weight for hidden layer
 z3 = z3/16.0;
 a3= 1.0001 ./(1+exp(-z3));                    % 復元層の出力                output for hidden layer
+
+writematrix(eps, 'eps.csv');
 end

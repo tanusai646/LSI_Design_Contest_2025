@@ -5,10 +5,12 @@ clear; close all;
 
 %% 道路画像を入力し，道路情報のみを保存する部分
 % 道路画像(GRBカラー)
-img_in = double(imread("road_image4.bmp"));
+img_in = double(imread("road_i_1.jpg"));
 
 % カラー画像を白黒に変換
 img_gray = 0.299*img_in(:,:,1) + 0.587*img_in(:,:,2) + 0.114*img_in(:,:,3);
+
+imwrite(uint8(img_gray), "road_i_1.bmp");
 
 figure()
 % 元画像の表示

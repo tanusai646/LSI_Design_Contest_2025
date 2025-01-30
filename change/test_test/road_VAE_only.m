@@ -83,7 +83,7 @@ epoch = 10000;  %実行回数
 
 % レイヤーの設定
 Layer1 = size_b*size_b;         % 入力層のユニット数
-Layer2 = 2;                    % 中間層（隠れ層，AEの出力層）のユニット数
+Layer2 = 16;                    % 中間層（隠れ層，AEの出力層）のユニット数
 Layer3 = Layer1;                % 復元層（出力層）のユニット数
 
 L2func = 'ReLUfnc';             % 中間層のアルゴリズム（'Sigmoid' or Default: 'ReLUfnc' 文字数は等しくないとエラーを起こす）
@@ -146,9 +146,9 @@ xlabel('Epoch'); ylabel('Error');
 
 save('vae_model.mat', 'w12_mean', 'w12_var', 'w23', 'b2_mean', 'b2_var', 'b3');
 
-writematrix(w12_mean, 'w2_mean.csv');
-writematrix(w12_var, 'w2_var.csv');
-writematrix(b2_mean, 'b2_mean.csv');
-writematrix(b2_var, 'b2_var.csv');
-writematrix(w23, 'w3.csv');
-writematrix(b3, 'b3.csv');
+writematrix(w12_mean, 'w2_mean16.csv');
+writematrix(w12_var, 'w2_var16.csv');
+writematrix(b2_mean, 'b2_mean16.csv');
+writematrix(b2_var, 'b2_var16.csv');
+writematrix(w23, 'w316.csv');
+writematrix(b3, 'b316.csv');

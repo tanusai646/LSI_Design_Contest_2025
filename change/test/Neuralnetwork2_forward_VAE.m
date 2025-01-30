@@ -53,4 +53,9 @@ z = a2_mean + sqrt(a2_var).*eps;
 z3 = w23 * z + b3;                     % 復元層（出力層）の重み付き入力        input weight for hidden layer
 z3 = z3/16.0;
 a3= 1.0001 ./(1+exp(-z3));                    % 復元層の出力                output for hidden layer
+
+writematrix(z2_mean, "z2_mean.csv");
+writematrix(z2_var, "z2_var.csv");
+writematrix(z3, "z3.csv");
+writematrix(eps, "eps.csv");
 end
