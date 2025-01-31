@@ -1,0 +1,14 @@
+\section{実験と考察}
+\subsection{実験結果}
+本節では，MATLABとFPGAの出力結果を比較し，PSNRおよび実行時間を評価する．
+また，SoC FPGAの動作を確認するために，実行画面を示す．
+
+まず，SoC FPGAの実行画面を図\ref{fig:3-1-1}に示す．
+ボタン0を押すことで初期値の読み込み，ボタン1から3で画像をVAEに通過させる処理を行っている．
+
+\subsubsection{図\ref{fig:3-1-2}，画像1の出力比較}
+図\ref{fig:3-1-3}にMATLABでの出力，図\ref{fig:3-1-4}にFPGAでの出力を示す．
+MATLABでは道路の部分付近がPSNR25以上の値を示していることがわかるが，空や山の一部もPSNRが高くなっている．
+FPGAの出力では，MATLABと比較して全体的にPSNRが低くなっていることがわかる．
+
+\subsection{考察}

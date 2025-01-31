@@ -1020,13 +1020,13 @@
   \let\@evenhead\@oddhead
  \fi
  \def\@oddfoot{\@Lbot\hfil
-  {\foot@font The 28th LSI Design Contest
+  {\foot@font The 28th LSI Design Contest in Okinawa
   }\hfil
     \llap{{\nombre@font\thepage\hskip3mm}}%
   \@Rbot}%
  \def\@evenfoot{\@Lbot
   \rlap{\hskip3mm{\nombre@font\thepage}}\hfil
-   {\foot@font The 28th LSI Design Contest\hskip1zw
+   {\foot@font The 28th LSI Design Contest in Okinawa\hskip1zw
 
    }\hfil
   \@Rbot}%
@@ -1045,7 +1045,7 @@
   \@Rtop}%
  \def\@evenhead{\@Ltop
   \rlap{\hbox to \textwidth{\smash{\rule[-1.75mm]{\textwidth}{0.25mm}}}}\hfil
-   {\Small\head@font The 28th LSI Design Contest\ 
+   {\Small\head@font The 28th LSI Design Contest in Okinawa\ 
 }%
   \@Rtop}%
 }
@@ -2021,7 +2021,7 @@
     \hskip8mm
     \vtop{\footnotesize\baselineskip3mm
      \hbox{2025 The 28th}%
-     \hbox{LSI Design Contest}%
+     \hbox{LSI Design Contest in Okinawa}%
      %\hbox{INFORMATION AND COMMUNICATION ENGINEERS}%
     }\hfill
     \vtop{\footnotesize\baselineskip3mm

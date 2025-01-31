@@ -1,10 +1,10 @@
 # Fdb version 4
 ["dvipdf"] 1737962032 "out/template(1).dvi" "out/template(1).pdf" "out/template(1)" 1737962033 0
-  "out/template(1).dvi" 1737962032 9952 81383287fc25f5f74937e8893f386de8 "latex"
+  "out/template(1).dvi" 1738308376 7240 f7a8d1c6130d5dc46287ce4fcc9bd428 "latex"
   (generated)
   "out/template(1).pdf"
   (rewritten before read)
-["latex"] 1737962031 "template(1).tex" "out/template(1).dvi" "template(1)" 1737962033 0
+["latex"] 1738308375 "template(1).tex" "out/template(1).dvi" "template(1)" 1738308376 2
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693405946 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis-v.tfm" 1693408683 468 de0d90434234b364bde43009461c2b1d ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm" 1693408683 468 53f854284f6afa6c36aaa2d1090ecc12 ""
@@ -80,9 +80,10 @@
   "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1693403785 40967 d940221f8762fd5848760382d97d1226 ""
   "c:/texlive/2023/texmf-var/web2c/euptex/platex.fmt" 1693410536 8115947 c0cf0e01e7bccb445ca55f2514bd035c ""
   "c:/texlive/2023/texmf.cnf" 1693410370 713 e69b156964470283e0530f5060668171 ""
-  "figures/test.png" 1737341361 74359 2689f0e716f7a595401ac6afd5083ed4 ""
-  "ieicej.cls" 1737962030 112228 5bb3b72b50897e409163f918e80d997d ""
-  "out/template(1).aux" 1737962032 172 3f31d8c987d8f4ccc9602ece29dbbaa4 "latex"
+  "figures/test.png" 0 -1 0 ""
+  "ieicej.cls" 1738308372 112272 f8f65e86ae667cdf626d1facc7ae53d6 ""
+  "out/figures/test.png" 0 -1 0 ""
+  "out/template(1).aux" 1738308376 42 7a014788f16087864b3375a659adc871 "latex"
   "template(1).tex" 1737527730 6466 8777d6fc40cd1ee1391f6bb48e9c7326 ""
   (generated)
   "out/template(1).aux"

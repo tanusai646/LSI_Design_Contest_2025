@@ -88,6 +88,8 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/url/url.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/url/url.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
 INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
 INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
@@ -236,18 +238,22 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ot1qhv.fd
 INPUT c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ot1qhv.fd
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/tex-gyre/rm-qhvr.tfm
 OUTPUT out/final_report.dvi
-INPUT ./figures/VAE_1.bmp
-INPUT ./figures/VAE_1.bmp
-INPUT ./figures/VAE_1.bmp
-INPUT extractbb -B cropbox -O figures/VAE_1.bmp
-INPUT ./figures/VAE_2.bmp
-INPUT ./figures/VAE_2.bmp
-INPUT ./figures/VAE_2.bmp
-INPUT extractbb -B cropbox -O figures/VAE_2.bmp
+INPUT ./figures/VAE_1.png
+INPUT ./figures/VAE_1.png
+INPUT ./figures/VAE_1.png
+INPUT extractbb -B cropbox -O figures/VAE_1.png
+INPUT ./figures/VAE_2.jpg
+INPUT ./figures/VAE_2.jpg
+INPUT ./figures/VAE_2.jpg
+INPUT extractbb -B cropbox -O figures/VAE_2.jpg
 INPUT ./figures/FPGA_1.png
 INPUT ./figures/FPGA_1.png
 INPUT ./figures/FPGA_1.png
 INPUT extractbb -B cropbox -O figures/FPGA_1.png
+INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtt.fd
+INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtt.fd
+INPUT c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtt.fd
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/txfonts/txtt.tfm
 INPUT ./figures/SoC_1.png
 INPUT ./figures/SoC_1.png
 INPUT ./figures/SoC_1.png
@@ -256,17 +262,43 @@ INPUT ./figures/SoC_2.png
 INPUT ./figures/SoC_2.png
 INPUT ./figures/SoC_2.png
 INPUT extractbb -B cropbox -O figures/SoC_2.png
-INPUT ./figures/Ex_re_2.png
-INPUT ./figures/Ex_re_2.png
-INPUT ./figures/Ex_re_2.png
-INPUT extractbb -B cropbox -O figures/Ex_re_2.png
+INPUT ./figures/SoC_3.jpg
+INPUT ./figures/SoC_3.jpg
+INPUT ./figures/SoC_3.jpg
+INPUT extractbb -B cropbox -O figures/SoC_3.jpg
+INPUT ./figures/Ex_pr1.png
+INPUT ./figures/Ex_pr1.png
+INPUT ./figures/Ex_pr1.png
+INPUT extractbb -B cropbox -O figures/Ex_pr1.png
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg-v.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jisg.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/newtx/ntx-Bold-tlf-ot1.tfm
-INPUT ./figures/Ex_re_1.png
-INPUT ./figures/Ex_re_1.png
-INPUT ./figures/Ex_re_1.png
-INPUT extractbb -B cropbox -O figures/Ex_re_1.png
+INPUT ./figures/Ex_pr2.png
+INPUT ./figures/Ex_pr2.png
+INPUT ./figures/Ex_pr2.png
+INPUT extractbb -B cropbox -O figures/Ex_pr2.png
+INPUT ./figures/Ex_pr3.png
+INPUT ./figures/Ex_pr3.png
+INPUT ./figures/Ex_pr3.png
+INPUT extractbb -B cropbox -O figures/Ex_pr3.png
+INPUT ./figures/Ex_re7.png
+INPUT ./figures/Ex_re7.png
+INPUT ./figures/Ex_re7.png
+INPUT extractbb -B cropbox -O figures/Ex_re7.png
+INPUT ./figures/Ex_pr1.png
+INPUT ./figures/Ex_pr1.png
+INPUT ./figures/Ex_pr1.png
+INPUT ./figures/Ex_re1.png
+INPUT ./figures/Ex_re1.png
+INPUT ./figures/Ex_re1.png
+INPUT extractbb -B cropbox -O figures/Ex_re1.png
+INPUT ./figures/Ex_re2.png
+INPUT ./figures/Ex_re2.png
+INPUT ./figures/Ex_re2.png
+INPUT extractbb -B cropbox -O figures/Ex_re2.png
+INPUT ./figures/Ex_pr2.png
+INPUT ./figures/Ex_pr2.png
+INPUT ./figures/Ex_pr2.png
 INPUT ./figures/Ex_re3.png
 INPUT ./figures/Ex_re3.png
 INPUT ./figures/Ex_re3.png
@@ -275,4 +307,20 @@ INPUT ./figures/Ex_re4.png
 INPUT ./figures/Ex_re4.png
 INPUT ./figures/Ex_re4.png
 INPUT extractbb -B cropbox -O figures/Ex_re4.png
+INPUT ./figures/Ex_pr3.png
+INPUT ./figures/Ex_pr3.png
+INPUT ./figures/Ex_pr3.png
+INPUT ./figures/Ex_re5.png
+INPUT ./figures/Ex_re5.png
+INPUT ./figures/Ex_re5.png
+INPUT extractbb -B cropbox -O figures/Ex_re5.png
+INPUT ./figures/Ex_re6.png
+INPUT ./figures/Ex_re6.png
+INPUT ./figures/Ex_re6.png
+INPUT extractbb -B cropbox -O figures/Ex_re6.png
+INPUT ./figures/De_re1.png
+INPUT ./figures/De_re1.png
+INPUT ./figures/De_re1.png
+INPUT extractbb -B cropbox -O figures/De_re1.png
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/txfonts/txtt.tfm
 INPUT out/final_report.aux

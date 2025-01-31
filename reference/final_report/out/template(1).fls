@@ -226,8 +226,4 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ot1qhv.fd
 INPUT c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ot1qhv.fd
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/public/tex-gyre/rm-qhvr.tfm
 OUTPUT out/template(1).dvi
-INPUT ./figures/test.png
-INPUT ./figures/test.png
-INPUT ./figures/test.png
 INPUT extractbb -B cropbox -O figures/test.png
-INPUT out/template(1).aux
