@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.8.31)  28 JAN 2025 16:47
+This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.8.31)  27 FEB 2025 02:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -410,14 +410,18 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count297
 )
+(c:/texlive/2023/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input lin
-e 31.
+e 33.
 
 (c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
 File: ot1ntxtlf.fd 2021/05/24 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 9.0pt on input line 31.
+(Font)              scaled to size 9.0pt on input line 33.
 
 (c:/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
 File: l3backend-dvips.def 2023-04-19 L3 backend support: dvips
@@ -432,77 +436,77 @@ File: l3backend-dvips.def 2023-04-19 L3 backend support: dvips
 (./final_report.aux)
 \openout1 = `final_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 31.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 33.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 31.
+ 33.
  (c:/texlive/2023/texmf-dist/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 33.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-31.
+33.
 
 (c:/texlive/2023/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 33.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 31.
+ 33.
 
 (c:/texlive/2023/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 33.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 31.
+e 33.
 
 (c:/texlive/2023/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Info: Command `\dddot' is already robust on input line 31.
-LaTeX Info: Command `\ddddot' is already robust on input line 31.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Info: Command `\dddot' is already robust on input line 33.
+LaTeX Info: Command `\ddddot' is already robust on input line 33.
 \c@mv@tabular=\count302
 \c@mv@boldtabular=\count303
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    External font `jis-v at8.1318pt' loaded for size
-(Font)              <8> on input line 32.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    External font `jis at8.1318pt' loaded for size
-(Font)              <8> on input line 32.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 32.
+(Font)              scaled to size 8.0pt on input line 34.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <8> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 32.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 34.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <8> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 32.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 34.
 LaTeX Font Info:    External font `jisg-v at8.1318pt' loaded for size
-(Font)              <8> on input line 32.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <8> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 32.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 34.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <8> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 32.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 34.
 LaTeX Font Info:    External font `jisg at8.1318pt' loaded for size
-(Font)              <8> on input line 32.
+(Font)              <8> on input line 34.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 8.0pt on input line 32.
+(Font)              scaled to size 8.0pt on input line 34.
 LaTeX Font Info:    External font `jis-v at13.307pt' loaded for size
 (Font)              <12> on input line 55.
 LaTeX Font Info:    External font `jis at13.307pt' loaded for size
@@ -574,19 +578,19 @@ LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
 File: figures/Intr_1.png Graphic file (type bmp)
 <figures/Intr_1.png>
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <7> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 76.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 75.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <7> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 76.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 75.
 LaTeX Font Info:    External font `jisg-v at7.3926pt' loaded for size
-(Font)              <7> on input line 76.
+(Font)              <7> on input line 75.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <7> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 76.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 75.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <7> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 76.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 75.
 LaTeX Font Info:    External font `jisg at7.3926pt' loaded for size
-(Font)              <7> on input line 76.
+(Font)              <7> on input line 75.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.0pt on input line 76.
+(Font)              scaled to size 7.0pt on input line 75.
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <9> not available
 (Font)              Font shape `JT1/mc/bx/n' tried instead on input line 84.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <9> not available
@@ -602,72 +606,110 @@ LaTeX Font Info:    External font `jisg at8.8711pt' loaded for size
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
 (Font)              scaled to size 9.0pt on input line 84.
 LaTeX Font Info:    External font `jis-v at17.742pt' loaded for size
-(Font)              <17.28> on input line 108.
+(Font)              <17.28> on input line 87.
 LaTeX Font Info:    External font `jis at17.742pt' loaded for size
-(Font)              <17.28> on input line 108.
+(Font)              <17.28> on input line 87.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 17.28pt on input line 108.
-LaTeX Font Info:    Trying to load font information for OT1+qhv on input line 1
-08.
+(Font)              scaled to size 17.28pt on input line 87.
+LaTeX Font Info:    Trying to load font information for OT1+qhv on input line 8
+7.
 
 (c:/texlive/2023/texmf-dist/tex/latex/tex-gyre/ot1qhv.fd
 File: ot1qhv.fd 2009/09/25 v1.2 font definition file for OT1/qhv
 )
 LaTeX Font Info:    Font shape `OT1/qhv/m/n' will be
-(Font)              scaled to size 7.52002pt on input line 108.
+(Font)              scaled to size 7.52002pt on input line 87.
  [1
 
 
 ]
-File: figures/VAE_1.bmp Graphic file (type bmp)
-<figures/VAE_1.bmp>
-File: figures/VAE_2.bmp Graphic file (type bmp)
-<figures/VAE_2.bmp>
+File: figures/VAE_1.png Graphic file (type bmp)
+<figures/VAE_1.png>
+File: figures/VAE_2.jpg Graphic file (type bmp)
+<figures/VAE_2.jpg>
  [2]
 File: figures/FPGA_1.png Graphic file (type bmp)
 <figures/FPGA_1.png>
-File: figures/FPGA_2.png Graphic file (type bmp)
-<figures/FPGA_2.png>
+LaTeX Font Info:    Trying to load font information for OT1+ntxtt on input line
+ 208.
+
+(c:/texlive/2023/texmf-dist/tex/latex/newtx/ot1ntxtt.fd
+File: ot1ntxtt.fd 2012/04/20 v3.1
+)
+LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
+(Font)              scaled to size 9.0pt on input line 208.
 File: figures/SoC_1.png Graphic file (type bmp)
 <figures/SoC_1.png>
 File: figures/SoC_2.png Graphic file (type bmp)
 <figures/SoC_2.png>
+File: figures/SoC_3.png Graphic file (type bmp)
+<figures/SoC_3.png>
  [3]
-File: figures/Ex_re_2.bmp Graphic file (type bmp)
-<figures/Ex_re_2.bmp>
+File: figures/Ex_pr1.png Graphic file (type bmp)
+<figures/Ex_pr1.png>
 LaTeX Font Info:    Font shape `JT1/mc/b/n' in size <6> not available
-(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 242.
+(Font)              Font shape `JT1/mc/bx/n' tried instead on input line 289.
 LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <6> not available
-(Font)              Font shape `JT1/gt/m/n' tried instead on input line 242.
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 289.
 LaTeX Font Info:    External font `jisg-v at6.6533pt' loaded for size
-(Font)              <6> on input line 242.
+(Font)              <6> on input line 289.
 LaTeX Font Info:    Font shape `JY1/mc/b/n' in size <6> not available
-(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 242.
+(Font)              Font shape `JY1/mc/bx/n' tried instead on input line 289.
 LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <6> not available
-(Font)              Font shape `JY1/gt/m/n' tried instead on input line 242.
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 289.
 LaTeX Font Info:    External font `jisg at6.6533pt' loaded for size
-(Font)              <6> on input line 242.
+(Font)              <6> on input line 289.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 6.0pt on input line 242.
-File: figures/Ex_re_1.png Graphic file (type bmp)
-<figures/Ex_re_1.png>
- [4
-
-]
+(Font)              scaled to size 6.0pt on input line 289.
+File: figures/Ex_pr2.png Graphic file (type bmp)
+<figures/Ex_pr2.png>
+File: figures/Ex_pr3.png Graphic file (type bmp)
+<figures/Ex_pr3.png>
+File: figures/Ex_re7.png Graphic file (type bmp)
+<figures/Ex_re7.png>
+File: figures/Ex_pr1.png Graphic file (type bmp)
+<figures/Ex_pr1.png>
+File: figures/Ex_re1.png Graphic file (type bmp)
+<figures/Ex_re1.png>
+File: figures/Ex_re2.png Graphic file (type bmp)
+<figures/Ex_re2.png>
+ [4]
+File: figures/Ex_pr2.png Graphic file (type bmp)
+<figures/Ex_pr2.png>
+File: figures/Ex_re3.png Graphic file (type bmp)
+<figures/Ex_re3.png>
+File: figures/Ex_re4.png Graphic file (type bmp)
+<figures/Ex_re4.png>
+File: figures/Ex_pr3.png Graphic file (type bmp)
+<figures/Ex_pr3.png>
+File: figures/Ex_re5.png Graphic file (type bmp)
+<figures/Ex_re5.png>
+File: figures/Ex_re6.png Graphic file (type bmp)
+<figures/Ex_re6.png>
+File: figures/De_re1.png Graphic file (type bmp)
+<figures/De_re1.png>
+ [5]
+LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
+(Font)              scaled to size 7.0pt on input line 512.
+ [6]
 (./final_report.aux)
  ***********
 pLaTeX2e <2023-02-14>+1, based on
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 8136 strings out of 475592
- 118598 string characters out of 5778113
- 1927637 words of memory out of 5000000
- 29593 multiletter control sequences out of 15000+600000
- 607477 words of font info for 172 fonts, out of 8000000 for 9000
+ 8350 strings out of 475592
+ 122034 string characters out of 5778113
+ 1930637 words of memory out of 5000000
+ 29790 multiletter control sequences out of 15000+600000
+ 608029 words of font info for 174 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
  69i,15n,117p,380b,807s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on final_report.dvi (4 pages, 20984 bytes).
+Output written on final_report.dvi (6 pages, 43288 bytes).

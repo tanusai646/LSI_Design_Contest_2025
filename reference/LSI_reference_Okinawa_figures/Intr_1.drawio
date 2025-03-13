@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16">
+  <diagram id="KwvtM_ioJ-xc_FUsTVH3" name="ページ1">
+    <mxGraphModel dx="1877" dy="669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="37" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#ae4132;opacity=50;" parent="1" vertex="1">
+          <mxGeometry x="370" y="440" width="120" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="36" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;opacity=50;" parent="1" vertex="1">
+          <mxGeometry x="491.3" y="380" width="120" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="&lt;font color=&quot;#000000&quot;&gt;5G base station&lt;/font&gt;" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#000000;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.radio_tower;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="400" y="313" width="55" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="2" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Processed in the cloud&lt;/font&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="360" y="520" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Data from on-board cameras" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="-45.5" y="435" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="19" style="edgeStyle=none;html=1;exitX=0.91;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.106;entryY=0.644;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=16;fontColor=#000000;endArrow=none;endFill=0;" parent="1" source="7" target="17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="21" style="edgeStyle=none;html=1;fontSize=16;fontColor=#000000;startArrow=classic;startFill=1;endArrow=classic;endFill=1;entryX=0.192;entryY=0.191;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="16" value="Transmitting moving images&amp;nbsp;&lt;div&gt;at high speed and&amp;nbsp;&lt;/div&gt;&lt;div&gt;capacity using 5G.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="119" y="328" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="20" value="" style="edgeStyle=none;html=1;fontSize=16;fontColor=#000000;endArrow=classic;endFill=1;startArrow=classic;startFill=1;entryX=0.736;entryY=0.199;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.746;exitY=0.971;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="17" target="2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="561.8366938472946" y="440" as="sourcePoint" />
+            <mxPoint x="577.6999999999998" y="534.4099999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image;image=img/lib/allied_telesis/computer_and_terminals/Server_Desktop.svg;strokeColor=#000000;strokeWidth=3;fontSize=16;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="510" y="386" width="42.599999999999994" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="Processing servers&amp;nbsp;&lt;div&gt;installed&amp;nbsp;&lt;span style=&quot;background-color: transparent;&quot;&gt;close&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;to the base station&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="451.3" y="310" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;This time the system&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;creation part of the system&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;◯Image compression&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;◯Abnormality detection&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;◯Image recognition&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;etc...&lt;/font&gt;&lt;/div&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;strokeColor=#000000;strokeWidth=1;fontSize=16;fontColor=#000000;direction=south;position2=0.63;align=left;" parent="1" vertex="1">
+          <mxGeometry x="590" y="345" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="28" value="" style="html=1;outlineConnect=0;fillColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.comm_link_edge;html=1;exitX=1.024;exitY=0.434;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#000000;" parent="1" source="29" target="7" edge="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="240" y="300" as="sourcePoint" />
+            <mxPoint x="360" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="32" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="20" y="470" width="99" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="29" value="" style="shape=mxgraph.signs.transportation.car_1;html=1;pointerEvents=1;fillColor=#000000;strokeColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;" parent="32" vertex="1">
+          <mxGeometry y="30" width="99" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="30" value="" style="shape=mxgraph.signs.tech.camera_2;html=1;pointerEvents=1;fillColor=#000000;strokeColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;" parent="32" vertex="1">
+          <mxGeometry x="29.5" width="40.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="39" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Current methods&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="357.5" y="660" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Future methods&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="491.3" y="660" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

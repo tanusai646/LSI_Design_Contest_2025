@@ -262,10 +262,10 @@ INPUT ./figures/SoC_2.png
 INPUT ./figures/SoC_2.png
 INPUT ./figures/SoC_2.png
 INPUT extractbb -B cropbox -O figures/SoC_2.png
-INPUT ./figures/SoC_3.jpg
-INPUT ./figures/SoC_3.jpg
-INPUT ./figures/SoC_3.jpg
-INPUT extractbb -B cropbox -O figures/SoC_3.jpg
+INPUT ./figures/SoC_3.png
+INPUT ./figures/SoC_3.png
+INPUT ./figures/SoC_3.png
+INPUT extractbb -B cropbox -O figures/SoC_3.png
 INPUT ./figures/Ex_pr1.png
 INPUT ./figures/Ex_pr1.png
 INPUT ./figures/Ex_pr1.png

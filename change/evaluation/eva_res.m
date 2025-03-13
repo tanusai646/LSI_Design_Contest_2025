@@ -9,41 +9,56 @@ block3_HW = readmatrix("PSNR3.CSV");
 
 
 figure(10);
+subplot(1,2,1);
 colormap(jet);
 imagesc(block1_SW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像1 MATLABの出力結果");
 
-figure(11);
+subplot(1,2,2);
 colormap(jet);
 imagesc(block1_HW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像1 FPGAの出力結果")
 
 
 figure(20);
+subplot(1,2,1);
 colormap(jet);
 imagesc(block2_SW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像2 MATLABの出力");
 
-figure(21);
+subplot(1,2,2);
 colormap(jet);
 imagesc(block2_HW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像2 FPGAの出力結果")
 
 figure(30);
+subplot(1,2,1);
 colormap(jet);
 imagesc(block3_SW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像3 MATLABの出力");
 
-figure(31);
+subplot(1,2,2)
 colormap(jet);
 imagesc(block3_HW);
+axis square;
 colorbar;
 clim([0, 40]);
+title("画像3 FPGAの出力結果")
 
 count1 = 0;
 for i=1:32
@@ -55,7 +70,7 @@ for i=1:32
 end
 
 size1 = count1*8*16 + (32*32 - count1) * 16 * 16 * 8;
-per1 = (512*512*8-size1) / (512*512*8);
+per1 = size1 / (512*512*8);
 count2 = 0;
 for i=1:32
     for j=1:32
@@ -66,7 +81,7 @@ for i=1:32
 end
 
 size2 = count2*8*16 + (32*32 - count2) * 16 * 16 * 8;
-per2 = (512*512*8-size2) / (512*512*8);
+per2 = size2 / (512*512*8);
 count3 = 0;
 for i=1:32
     for j=1:32
@@ -77,4 +92,4 @@ for i=1:32
 end
 
 size3 = count3*8*16 + (32*32 - count3) * 16 * 16 * 8;
-per3 = (512*512*8-size3) / (512*512*8);
+per3 = size3 / (512*512*8);

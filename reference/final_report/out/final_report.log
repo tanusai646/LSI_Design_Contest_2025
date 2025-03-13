@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.8.31)  31 JAN 2025 16:47
+This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.sjis) (TeX Live 2023) (preloaded format=platex 2023.8.31)  2 MAR 2025 21:19
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -573,8 +573,8 @@ File: figures/SoC_1.png Graphic file (type bmp)
 <figures/SoC_1.png>
 File: figures/SoC_2.png Graphic file (type bmp)
 <figures/SoC_2.png>
-File: figures/SoC_3.jpg Graphic file (type bmp)
-<figures/SoC_3.jpg>
+File: figures/SoC_3.png Graphic file (type bmp)
+<figures/SoC_3.png>
  [3]
 File: figures/Ex_pr1.png Graphic file (type bmp)
 <figures/Ex_pr1.png>
@@ -604,13 +604,13 @@ File: figures/Ex_re1.png Graphic file (type bmp)
 <figures/Ex_re1.png>
 File: figures/Ex_re2.png Graphic file (type bmp)
 <figures/Ex_re2.png>
+ [4]
 File: figures/Ex_pr2.png Graphic file (type bmp)
 <figures/Ex_pr2.png>
 File: figures/Ex_re3.png Graphic file (type bmp)
 <figures/Ex_re3.png>
 File: figures/Ex_re4.png Graphic file (type bmp)
 <figures/Ex_re4.png>
- [4]
 File: figures/Ex_pr3.png Graphic file (type bmp)
 <figures/Ex_pr3.png>
 File: figures/Ex_re5.png Graphic file (type bmp)

@@ -1,10 +1,10 @@
 # Fdb version 4
-["dvipdf"] 1738309668 "out/final_report.dvi" "out/final_report.pdf" "out/final_report" 1738309671 0
-  "out/final_report.dvi" 1738309668 43288 3225dc97493cdfbd472aa383ff500b2e "latex"
+["dvipdf"] 1740917992 "out/final_report.dvi" "out/final_report.pdf" "out/final_report" 1740917996 0
+  "out/final_report.dvi" 1740917992 43288 6c5ecf6e3c60fd772b06d1a1db9e207a "latex"
   (generated)
   "out/final_report.pdf"
   (rewritten before read)
-["latex"] 1738309657 "final_report.tex" "out/final_report.dvi" "final_report" 1738309671 0
+["latex"] 1740917981 "final_report.tex" "out/final_report.dvi" "final_report" 1740917996 0
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693405946 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis-v.tfm" 1693408683 468 de0d90434234b364bde43009461c2b1d ""
   "c:/texlive/2023/texmf-dist/fonts/tfm/ptex-fonts/jis/jis.tfm" 1693408683 468 53f854284f6afa6c36aaa2d1090ecc12 ""
@@ -96,12 +96,12 @@
   "figures/Intr_1.png" 1737965223 212556 4c3946a7946b25215c398cd5764ee879 ""
   "figures/SoC_1.png" 1737960635 79820 654ef6358fd6690720fcdc2c9e4c371e ""
   "figures/SoC_2.png" 1737963129 37989 30c4addf3f67a7b74998e4b5d0bdebc7 ""
-  "figures/SoC_3.jpg" 1738236643 107800 88b237a9c2f1ff7590abd71733c277f0 ""
+  "figures/SoC_3.png" 1740589594 114724 3f42608268e65f3b69e9ba47111890b5 ""
   "figures/VAE_1.png" 1738309592 66829 cee3206e46c641544f129d05031545b5 ""
   "figures/VAE_2.jpg" 1738235760 123559 a5868a829b711775d681968a5b72c18a ""
-  "final_report.tex" 1738309656 27187 adafffb6d9ba2defc1896341235ff6cc ""
+  "final_report.tex" 1740917952 27187 2206c7d0c4e2ee6687289dd772ef7d5c ""
   "ieicej.cls" 1738308372 112272 f8f65e86ae667cdf626d1facc7ae53d6 ""
-  "out/final_report.aux" 1738309668 5774 f92e74b718b4fba1a4a8fc29754ab307 "latex"
+  "out/final_report.aux" 1740917992 5774 4d6dfb56d78c5fc60d3b9691db3cd229 "latex"
   (generated)
   "out/final_report.aux"
   "out/final_report.dvi"
